@@ -1,6 +1,4 @@
-
 /*
-  
   TODO: pass in a config or options object to draw a different
   kind / color train. There should be default options and the
   constructor should iterate over it checking for typeof
@@ -18,15 +16,22 @@ function Train(trackSection) {
   this.posAngles = this.currentTrackSection.posAngles;
   this.x = this.posAngles[0].x;
 	this.y = this.posAngles[0].y;
-  this.currentStep = 0;
+  this.currentPos = 1; // skip the first pos to stop repeats
+  this.camera = createVector(-this.x + width / 4, -this.y + height);
+  this.hasFinishedCurrentSection = false 
 
-  this.update = function() {
+  this.update = function(speed) {
        
-    if (this.currentStep < this.posAngles.length){
-      this.x = this.posAngles[this.currentStep].x;
-      this.y = this.posAngles[this.currentStep].y;
-      this.angle = this.posAngles[this.currentStep].a;
-      this.currentStep += 1;
+    if (this.currentPos <= this.posAngles.length - 1){
+      // track section not complete
+      this.x = this.posAngles[this.currentPos].x;
+      this.y = this.posAngles[this.currentPos].y;
+      this.angle = this.posAngles[this.currentPos].a;
+      this.currentPos += speed;
+      this.camera = createVector(-this.x + width / 4, -this.y + height);
+     } else { 
+       // track section is complete
+       this.hasFinishedCurrentSection = true; 
      }
   };
 
