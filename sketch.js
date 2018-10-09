@@ -19,25 +19,15 @@ function setup() {
   
   createCanvas(640, 480);
   background(200);
-  let a = createVector(50, 300);
-  let b = createVector(300, 300);
-  let c = createVector(300, 500);
-  let d = createVector(550, 500);
+  let s1 = createVector(50, 300);
+  curve1 = calcCurveFromPoint(s1, "RIGHT"); 
 
-  let e = createVector(550, 500);
-  let f = createVector(550, 500);
-  let g = createVector(1050, 500);
-  let h = createVector(1050, 500);
+  let s2 = createVector(550, 500);
+  curve2 = calcCurveFromPoint(s2, "STRAIGHT"); 
 
-  let l = createVector(1050, 500);
-  let m = createVector(1350, 500);
-  let n = createVector(1250, 700);
-  let o = createVector(1550, 700);
-
-  // create the bezier curves
-  curve1 = new BezierCurve(a, b, c, d);
-  curve2 = new BezierCurve(e, f, g, h);
-  curve3 = new BezierCurve(l, m, n, o);
+  let s3 = createVector(1050, 500);
+  curve3 = calcCurveFromPoint(s3, "LEFT"); 
+  
   // create the tracks from the bezier curves
   track1 = new TrackSection(curve1);
   track2 = new TrackSection(curve2);
