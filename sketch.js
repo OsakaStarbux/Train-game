@@ -14,26 +14,21 @@ let speed = 1; // Naturals only
 let course;
 let tracks = [];
 
-
 function setup() {
   
   createCanvas(640, 480);
   background(200);
   let s1 = createVector(50, 300);
-  curve1 = calcCurveFromPoint(s1, "RIGHT"); 
-
-  let s2 = createVector(550, 500);
-  curve2 = calcCurveFromPoint(s2, "STRAIGHT"); 
-
-  let s3 = createVector(1050, 500);
-  curve3 = calcCurveFromPoint(s3, "LEFT"); 
-  
-  // create the tracks from the bezier curves
-  track1 = new TrackSection(curve1);
-  track2 = new TrackSection(curve2);
-  track3 = new TrackSection(curve3);
-  tracks = [track1, track2, track3];
-  // create the course from the tracks
+  tracks  = buildCourse(s1, ["RIGHT",
+                             "STRAIGHT",
+                             "LEFT",
+                             "STRAIGHT",
+                             "LEFT",
+                             "STRAIGHT", 
+                             "RIGHT",
+                             "RIGHT",
+                             "STRAIGHT"
+                            ]);
   course = new Course(tracks)
 
   frameH = 250;
@@ -41,6 +36,8 @@ function setup() {
   sand = color("#ffd98e");
   grass = color("#97de95");
   sea = color("#6bd5e1");
+
+  
   //background(sea);
 }
 
@@ -56,5 +53,5 @@ function draw() {
   
   // train update and show
   course.update();
-
+ 
 }

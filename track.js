@@ -1,6 +1,7 @@
 // a track section constructor function
-function TrackSection(bcurve) {
-  this.curve = bcurve;
+function TrackSection(startPoint, direction) {
+  
+  this.curve = calcCurveFromPoint(startPoint, direction) ;
   this.sleeperCount = 15;
   this.offsetpointCount = 15;
   this.offsetDistance = 15; // half of the guage
@@ -19,6 +20,7 @@ function TrackSection(bcurve) {
   );
   this.sleeperTangents = this.curve.tangentPoints(this.sleeperCount);
   this.stepPoints = this.curve.equidistantPoints(this.stepPointCount);
+  this.endpoint = this.stepPoints[this.stepPoints.length -1];
   this.stepTangents = this.curve.tangentPoints(this.stepPointCount);
   this.posAngles = [];
 

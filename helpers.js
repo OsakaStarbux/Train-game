@@ -44,6 +44,20 @@ function calcCurveFromPoint(pointVector, direction) {
 }
 
 
+// A function that consumes a startPoint vector and 
+// an array of directions and returns an array of tracks
+function buildCourse(startPoint, directions){
+	let tracks = [];
+  let firstTrack = new TrackSection(startPoint,directions[0]);
+  tracks.push(firstTrack);
+  
+  for (let i = 1; i < directions.length; i++){
+    let nextTrack	= new TrackSection(tracks[i - 1].endpoint, directions[i]);
+  	tracks.push(nextTrack);
+  }
+  console.log("Track count: " + tracks.length);
+  return tracks;
+}
 
 
 
