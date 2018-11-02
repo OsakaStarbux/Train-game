@@ -8,7 +8,7 @@
 */
 // a train constructor function
 function Train(trackSection) {
-  
+
   this.length = 100;
   this.width = 40;
   this.angle = 0;
@@ -18,10 +18,10 @@ function Train(trackSection) {
 	this.y = this.posAngles[0].y;
   this.currentPos = 1; // skip the first pos to stop repeats
   this.camera = createVector(-this.x + width / 4, -this.y + height);
-  this.hasFinishedCurrentSection = false 
+  this.hasFinishedCurrentSection = false
 
   this.update = function(speed) {
-       
+
     if (this.currentPos <= this.posAngles.length - 1){
       // track section not complete
       this.x = this.posAngles[this.currentPos].x;
@@ -29,14 +29,14 @@ function Train(trackSection) {
       this.angle = this.posAngles[this.currentPos].a;
       this.currentPos += speed;
       this.camera = createVector(-this.x + width / 4, -this.y + height);
-     } else { 
+     } else {
        // track section is complete
-       this.hasFinishedCurrentSection = true; 
+       this.hasFinishedCurrentSection = true;
      }
   };
 
   this.show = function() {
-    
+
     push();
     strokeWeight(1);
     stroke("red");
@@ -186,3 +186,5 @@ function Train(trackSection) {
     pop();
   };
 }
+
+module.exports.Train = Train;

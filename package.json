@@ -1,0 +1,23 @@
+{
+  "name": "train-game",
+  "version": "1.0.0",
+  "description": "A train track switching game",
+  "main": "sketch.js",
+  "scripts": {
+    "test": "mocha-chrome test.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/OsakaStarbux/train-game.git"
+  },
+  "author": "Kevin Bradley",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/OsakaStarbux/train-game#readme",
+  "dependencies": {
+    "chai": "*"
+  },
+  "devDependencies": {
+    "babel-register": "^6.26.0",
+    "mocha-chrome": "^1.1.0"
+  }
+}

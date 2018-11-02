@@ -15,7 +15,7 @@ let course;
 let tracks = [];
 
 function setup() {
-  
+
   createCanvas(640, 480);
   background(200);
   let s1 = createVector(50, 300);
@@ -24,7 +24,7 @@ function setup() {
                              "LEFT",
                              "STRAIGHT",
                              "LEFT",
-                             "STRAIGHT", 
+                             "STRAIGHT",
                              "RIGHT",
                              "RIGHT",
                              "STRAIGHT"
@@ -37,21 +37,21 @@ function setup() {
   grass = color("#97de95");
   sea = color("#6bd5e1");
 
-  
+
   //background(sea);
 }
 
 function draw() {
   background(grass)
-  // show framerate for debugging 
+  // show framerate for debugging
   showFrameRate();
-  // show camera position for debugging 
+  // show camera position for debugging
   showCameraPos(course.train.camera.x, course.train.camera.y);
   scale(scaleSize);
 
   translate(course.train.camera.x, course.train.camera.y);
-  
+
   // train update and show
   course.update();
- 
+
 }

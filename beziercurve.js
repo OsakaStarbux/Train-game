@@ -6,7 +6,7 @@ This code is based on the example at processing.org in Java by Jakub Valtar www.
 https://github.com/processing/processing-docs/tree/master/content/examples/Topics/Curves/ArcLengthParametrization
 
 Functions getPointAtFraction() and getPointAtLength()
-return points at fixed distances. 
+return points at fixed distances.
 
 I want to move an object along the curve at a fixed speed
 and draw things equally spaced on curves.
@@ -19,12 +19,12 @@ pointAtParameter(t): returns a point on the curve at t
 
 length: returns the length of the curve
 
-pointAtFraction(fraction): returns a point at fraction of the curve length e.g. 0.25 is a quarter of the length 
+pointAtFraction(fraction): returns a point at fraction of the curve length e.g. 0.25 is a quarter of the length
 
 pointAtLength(length) : returns a point at a specified arc length along the curve.
- 
+
 equidistantPoints(howMany)  Returns an array of (howMany) equidistant p5.Vector points on the curve
- 
+
 points(howMany): returns an array of (howMany)points on the curve
 
 offsetPoints(howMany, dist, angle): calculates points running parallel to the curve at "dist" pixels from the bezier given the angle from the tangent. These points can be used to draw a parallel curve
@@ -234,7 +234,7 @@ function BezierCurve(a, b, c, d) {
       let tx = bezierTangent(this.v0.x, this.v1.x, this.v2.x, this.v3.x, t);
       let ty = bezierTangent(this.v0.y, this.v1.y, this.v2.y, this.v3.y, t);
       let a = atan2(ty, tx);
-      
+
       // push the point onto the result array
       result.push(a);
     }
@@ -259,3 +259,5 @@ function binarySearch(sortedArray, elt) {
   }
   return -(lowIndex + 1);
 }
+
+module.exports.BezierCurve = BezierCurve;

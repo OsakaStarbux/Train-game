@@ -1,4 +1,8 @@
 // a course constructor function
+//
+// consumes an array of type TracKSection and produces a Course
+// Holds and updates our position in the course
+
 function Course(trackSections) {
 
   this.trackSections = trackSections
@@ -20,14 +24,14 @@ function Course(trackSections) {
     if (!this.isFinished) {
       // show all the tracks all the time
       if (this.currentStep <= this.trackSections.length - 1) {
-        
+
         // update train on current section
         this.train.update(speed);
-     		
+
         if (this.train.hasFinishedCurrentSection) {
         // switch to next section (increment this.currentStep)
           this.currentStep += 1;
-          
+
           if (this.trackSections[this.currentStep]){
           this.currentTrackSection = this.trackSections[this.currentStep]
           // create a new train with reset state
@@ -41,9 +45,12 @@ function Course(trackSections) {
         console.log("Finished course")
         this.isFinished = true;
       }
-      
+
     }
     //show the train here, it will render even if it is finished the course
     this.train.show();
   };
 }
+
+
+module.exports.Course = Course;

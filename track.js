@@ -1,6 +1,6 @@
 // a track section constructor function
 function TrackSection(startPoint, direction) {
-  
+
   this.curve = calcCurveFromPoint(startPoint, direction) ;
   this.sleeperCount = 15;
   this.offsetpointCount = 15;
@@ -54,3 +54,5 @@ function TrackSection(startPoint, direction) {
     pop();
   };
 }
+
+module.exports.TrackSection = TrackSection;
