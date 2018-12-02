@@ -1,10 +1,12 @@
 //global variables
+let cnv;
 let scaleSize;
 let bcurve;
 let train;
 let track;
 let noiseVal;
 let noiseScale;
+let menu;
 let sand;
 let grass;
 let sea;
@@ -16,7 +18,7 @@ let tracks = [];
 
 function setup() {
 
-  createCanvas(640, 480);
+  cnv = createCanvas(640, 480);
   background(200);
   let s1 = createVector(50, 300);
   tracks  = buildCourse(s1, ["RIGHT",
