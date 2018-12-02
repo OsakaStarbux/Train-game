@@ -93,8 +93,8 @@ function curveFromArray(array) {
   endShape();
 }
 
-module.exports.curveFromArray = curveFromArray;
-module.exports.buildCourse = buildCourse;
-module.exports.calcCurveFromPoint = calcCurveFromPoint;
-module.exports.showCameraPos = showCameraPos;
-module.exports.showFrameRate = showFrameRate;
+// module.exports.curveFromArray = curveFromArray;
+// module.exports.buildCourse = buildCourse;
+// module.exports.calcCurveFromPoint = calcCurveFromPoint;
+// module.exports.showCameraPos = showCameraPos;
+// module.exports.showFrameRate = showFrameRate;

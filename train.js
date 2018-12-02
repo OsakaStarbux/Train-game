@@ -187,4 +187,4 @@ function Train(trackSection) {
   };
 }
 
-module.exports.Train = Train;
+//module.exports.Train = Train;

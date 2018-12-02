@@ -55,4 +55,4 @@ function TrackSection(startPoint, direction) {
   };
 }
 
-module.exports.TrackSection = TrackSection;
+//module.exports.TrackSection = TrackSection;

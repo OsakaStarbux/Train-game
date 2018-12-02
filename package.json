@@ -14,7 +14,8 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/OsakaStarbux/train-game#readme",
   "dependencies": {
-    "chai": "*"
+    "chai": "*",
+    "requirejs": "^2.3.6"
   },
   "devDependencies": {
     "babel-register": "^6.26.0",

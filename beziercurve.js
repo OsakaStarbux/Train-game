@@ -260,4 +260,4 @@ function binarySearch(sortedArray, elt) {
   return -(lowIndex + 1);
 }
 
-module.exports.BezierCurve = BezierCurve;
+//module.exports.BezierCurve = BezierCurve;

@@ -1,3 +1,7 @@
+
+
+
+
 //global variables
 let cnv;
 let scaleSize;
@@ -17,7 +21,7 @@ let course;
 let tracks = [];
 
 function setup() {
-
+console.log("p5 setup")
   cnv = createCanvas(640, 480);
   background(200);
   let s1 = createVector(50, 300);
@@ -38,7 +42,7 @@ function setup() {
   sand = color("#ffd98e");
   grass = color("#97de95");
   sea = color("#6bd5e1");
-
+  menu = new Menu();
 
   //background(sea);
 }
@@ -55,5 +59,5 @@ function draw() {
 
   // train update and show
   course.update();
-
+  
 }

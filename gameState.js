@@ -27,14 +27,15 @@ function GameState() {
 }
 
 function StartMenu() {
+  this.menu = null;
   this.entryActions = function(){
     // setup and do things only once on entry
-     menu = new Menu();
+     this.menu = new Menu();
   }
 
   this.update = function(wrapper) {
     // do someething on every update call
-    menu.show();
+    this.menu.show();
     // use a conditionals to decide:
     // - when to move to another state
     // - which state
@@ -45,6 +46,7 @@ function StartMenu() {
 
   this.exitActions = function(){
     // teardown and do things only once on exit
+    
   }
 
 }
