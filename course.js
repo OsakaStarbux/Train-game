@@ -28,10 +28,8 @@ function Course(trackSections) {
     /* Client calls to the wrapper function,  get delegated to the current
     state object. We need a reference back to the wrapper
     */
-    this.currentState.update(this); // pass wrapper class "this"
+    this.currentState.update(this); // pass wrapper class "this" Course
   };
-
-
 
   this.showTracks = function() {
 
@@ -39,11 +37,10 @@ function Course(trackSections) {
       section.show();
     });
   }
-
-
-  }
+}
 
   StartMenu() {
+
     this.menu = null;
     this.entryActions = function(){
       // setup and do things only once on entry
@@ -69,7 +66,6 @@ function Course(trackSections) {
 
     this.exitActions = function(){
       // teardown and do things only once on exit
-
     }
 
 }
@@ -79,6 +75,7 @@ EnRoute(){
 
   this.entryActions = function(){
     // setup and do things only once on entry
+    console.log("Choo choooo!");
   }
 
   this.update = function(wrapper) {
@@ -116,7 +113,7 @@ EnRoute(){
             this.train.currentTrackSection = this.trackSections[this.currentStep];
             }
           }
-      
+
 
 
 
