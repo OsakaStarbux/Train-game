@@ -42,7 +42,7 @@ console.log("p5 setup")
   sand = color("#ffd98e");
   grass = color("#97de95");
   sea = color("#6bd5e1");
-  menu = new Menu();
+
 
   //background(sea);
 }
@@ -50,14 +50,14 @@ console.log("p5 setup")
 function draw() {
   background(grass)
   // show framerate for debugging
-  showFrameRate();
+//  showFrameRate();
   // show camera position for debugging
-  showCameraPos(course.train.camera.x, course.train.camera.y);
+  //showCameraPos(course.train.camera.x, course.train.camera.y);
   scale(scaleSize);
 
   translate(course.train.camera.x, course.train.camera.y);
 
   // train update and show
   course.update();
-  
+
 }
