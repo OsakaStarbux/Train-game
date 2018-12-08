@@ -22,14 +22,14 @@ function Signal(pos) {
       this.open = true;
     }
   }
-  
+
   this.contains = function(point){
     return point.x > this.bounds.min.x && point.x < this.bounds.max.x &&
       point.y > this.bounds.min.y && point.y < this.bounds.max.y
   }
-  
+
   this.show = function() {
-    scale(0.75);
+    //scale(0.75);
     // draw post
     fill(255);
     noStroke();
@@ -43,7 +43,7 @@ function Signal(pos) {
     // strokeWeight(2);
     // rect(this.pos.x - 90,this.pos.y - 170, 100, 320);
     // pop();
-    
+
     if (this.open) {
       this.rotation = PI / 4;
       this.greenSpectacleColor = this.green;
@@ -81,5 +81,5 @@ function Signal(pos) {
     ellipse(9, 12, 12, 12);
     pop();
   };
-  
+
 }

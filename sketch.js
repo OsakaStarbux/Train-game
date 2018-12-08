@@ -1,30 +1,20 @@
 
-
-
-
 //global variables
 let cnv;
-let scaleSize;
-let bcurve;
-let train;
 let track;
-let noiseVal;
-let noiseScale;
-let menu;
 let sand;
 let grass;
 let sea;
-let frameH;
-let highest = 0.0;
 let speed = 1; // Naturals only
 let course;
 let tracks = [];
 
 function setup() {
-console.log("p5 setup")
-  cnv = createCanvas(640, 480);
+
+  cnv = createCanvas(windowWidth, windowHeight);
+  cnv.mousePressed(handleClick);
   background(200);
-  let s1 = createVector(50, 300);
+  let s1 = createVector(width / 4, height / 2);
   tracks  = buildCourse(s1, ["RIGHT",
                              "STRAIGHT",
                              "LEFT",
@@ -37,27 +27,29 @@ console.log("p5 setup")
                             ]);
   course = new Course(tracks)
 
-  frameH = 250;
-  scaleSize = 0.5;
+  // colors
   sand = color("#ffd98e");
   grass = color("#97de95");
   sea = color("#6bd5e1");
-
-
-  //background(sea);
+  
 }
 
 function draw() {
   background(grass)
   // show framerate for debugging
-//  showFrameRate();
+  //  showFrameRate();
   // show camera position for debugging
-  //showCameraPos(course.train.camera.x, course.train.camera.y);
-  scale(scaleSize);
+  //showCameraPos(course.train.x, course.train.y);
 
-  translate(course.train.camera.x, course.train.camera.y);
-
-  // train update and show
+  // dived the value by 2 to compensate for scaling in the draw functions
+  // add some fraction of the screen width and height to the x and y
+  // to position them on the screen
+  translate(-course.train.x / 2 + width / 4, -course.train.y /2 + height / 2);
+  // course update and show
   course.update();
 
+}
+
+function handleClick(){
+  course.currentState.handleClick();
 }

@@ -34,8 +34,10 @@ function TrackSection(startPoint, direction) {
 
   this.show = function() {
     // draw sleepers
+
     for (let i = 0; i < this.sleeperPoints.length; i++) {
       push();
+      scale(0.5)
       translate(this.sleeperPoints[i].x, this.sleeperPoints[i].y);
       rotate(this.sleeperTangents[i]);
       fill(81, 68, 63);
@@ -46,6 +48,7 @@ function TrackSection(startPoint, direction) {
     }
     // draw rails
     push();
+    scale(0.5)
     stroke(242, 252, 255);
     strokeWeight(5);
     strokeCap(PROJECT);
@@ -54,5 +57,3 @@ function TrackSection(startPoint, direction) {
     pop();
   };
 }
-
-//module.exports.TrackSection = TrackSection;

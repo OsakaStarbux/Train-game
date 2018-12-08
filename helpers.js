@@ -92,9 +92,12 @@ function curveFromArray(array) {
 
   endShape();
 }
+// Consumes rectangle boundary limits: leftX, rightX, topY, bottomY, pointVector)
+// return true if the point is withn the boundary, false if not
+function containsPoint(topLeft, bottomRight, point){
+  return point.x > topLeft.x &&
+          point.x < bottomRight.x &&
+          point.y > topLeft.y &&
+          point.y < bottomRight.y
 
-// module.exports.curveFromArray = curveFromArray;
-// module.exports.buildCourse = buildCourse;
-// module.exports.calcCurveFromPoint = calcCurveFromPoint;
-// module.exports.showCameraPos = showCameraPos;
-// module.exports.showFrameRate = showFrameRate;
+}

@@ -55,8 +55,16 @@ function Course(trackSections) {
 function StartMenu() {
 
     this.menu = new Menu();
-    this.startTime = 0;
-    this.period = 2000;
+
+    this.handleClick = function(){
+      console.log("StartMenu: clcik detected")
+      let mousePos = createVector(mouseX, mouseY);
+      if (this.menu.contains(mousePos)){
+        console.log("click inside menu bounds")
+        course.set_state(new Countdown());
+      }
+
+    }
 
     this.entryActions = function(){
       console.log("Current state: StartMenu")
@@ -64,19 +72,17 @@ function StartMenu() {
     }
 
     this.update = function(wrapper) {
-      // do someething on every update call
-      let currentTime = millis();
-      if (currentTime > this.startTime + this.period){
-        console.log("Simulated click after 2 seconds");
-          wrapper.set_state(new Countdown());
-      }
 
-      // show the menu
-      this.menu.show();
-      // show the train
-      wrapper.train.show();
+    // do someething on every update call
       // show the tracks
       wrapper.showTracks();
+      // show the train
+      wrapper.train.show();
+
+
+      this.menu.update();
+      // show the menu
+      this.menu.show();
 
     };
 
@@ -91,6 +97,26 @@ function Countdown() {
   this.countdown = 5;
   this.period = 1000;
   this.startMillis = 0;
+
+  this.handleClick = function(){
+    console.log("Countdown: clcik detected")
+  }
+
+  this.showCountdown = function(count){
+    let countText;
+    if (count > 0){
+      countText = count.toString();
+    } else {
+      countText = "";
+    }
+    push();
+    resetMatrix();
+    fill(255,255,255,200);
+    textSize(height / 2);
+    textAlign(CENTER, CENTER);
+    text(countText, width / 2, height / 2);
+    pop();
+  }
 
   this.entryActions = function(wrapper){
     // setup and do things only once on entry
@@ -111,15 +137,12 @@ function Countdown() {
       this.startMillis = currentTime;
     }
     // show the countdown
-    push();
-    fill(255);
-    textSize(128);
-    text(`${this.countdown}`, width / 2, height / 2);
-    pop();
-    // show the train but dont update (move) it
-    wrapper.train.show();
+    this.showCountdown(this.countdown);
+
     // show the tracks
     wrapper.showTracks();
+    // show the train but dont update (move) it
+    wrapper.train.show();
 
     if (this.countdown <= 0) {
       wrapper.set_state(new LeadIn());
@@ -135,6 +158,10 @@ function Countdown() {
 
 function LeadIn(){
 
+  this.handleClick = function(){
+    console.log("LeadIn: clcik detected")
+  }
+
   this.entryActions = function(wrapper){
     // setup and do things only once on entry
     console.log("Current state: LeadIn")
@@ -148,9 +175,6 @@ function LeadIn(){
     wrapper.train.update(speed);
     //show the train
     wrapper.train.show();
-
-
-
     //if the track section is finished: set next track section
     // This is the first track section so we won't check
     // if the course is finished
@@ -172,6 +196,10 @@ function LeadIn(){
 
 
 function EnRoute(){
+
+  this.handleClick = function(){
+    console.log("EnRoute: clcik detected")
+  }
 
   this.entryActions = function(wrapper){
     // setup and do things only once on entry
@@ -218,6 +246,10 @@ function EnRoute(){
 
 function GameOver(){
 
+  this.handleClick = function(){
+    console.log("GameOver: clcik detected")
+  }
+
   this.entryActions = function(wrapper){
     // setup and do things only once on entry
     console.log("Current state: GameOver")
@@ -238,8 +270,3 @@ function GameOver(){
     // teardown and do things only once on exit
   }
 }
-
-
-
-
-//module.exports.Course = Course;

@@ -17,7 +17,7 @@ function Train(trackSection) {
   this.x = this.posAngles[0].x;
 	this.y = this.posAngles[0].y;
   this.currentPos = 1; // skip the first pos to stop repeats
-  this.camera = createVector(-this.x + width / 4, -this.y + height);
+  this.camera = createVector((-this.x + width / 4) * 2, (-this.y + height) * 2);
   this.hasFinishedCurrentSection = false
 
   this.update = function(speed) {
@@ -28,7 +28,7 @@ function Train(trackSection) {
       this.y = this.posAngles[this.currentPos].y;
       this.angle = this.posAngles[this.currentPos].a;
       this.currentPos += speed;
-      this.camera = createVector(-this.x + width / 4, -this.y + height);
+      this.camera = createVector(-this.x + 100, -this.y);
      } else {
        // track section is complete
        this.hasFinishedCurrentSection = true;
@@ -38,6 +38,7 @@ function Train(trackSection) {
   this.show = function() {
 
     push();
+    scale(0.5)
     strokeWeight(1);
     stroke("red");
     fill(200);
