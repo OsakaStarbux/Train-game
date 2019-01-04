@@ -4,7 +4,8 @@ function Signal(pos) {
   this.bounds = {
     min:{ x: this.pos.x - 90, y: this.pos.y - 170},
     max:{ x: this.pos.x + 15, y: this.pos.y + 155}
-  }
+  };
+
   this.open = true;
   this.rotation = 0;
   this.green = color(0, 255, 0);
@@ -21,12 +22,12 @@ function Signal(pos) {
     } else {
       this.open = true;
     }
-  }
+  };
 
   this.contains = function(point){
     return point.x > this.bounds.min.x && point.x < this.bounds.max.x &&
-      point.y > this.bounds.min.y && point.y < this.bounds.max.y
-  }
+      point.y > this.bounds.min.y && point.y < this.bounds.max.y;
+  };
 
   this.show = function() {
     //scale(0.75);

@@ -1,10 +1,14 @@
-var expect = require('chai').expect;
-var {p5} = require('../p5.min.js');
-var TrackSection = require('../track').TrackSection;
-var Train = require('../train').Train;
-var Course = require('../course').Course;
-var {helpers} = require('../helpers');
+ /*jshint esversion: 6 */
 
+let expect = require('chai').expect;
+let {p5} = require('../p5.min.js');
+let TrackSection = require('../trackSection').TrackSection;
+let Train = require('../train').Train;
+let {helpers} = require('../helpers');
+let Tree = require('../tree').Tree;
+let Node = require('../tree').Node;
+let  Course  = require('../course.js');
+let courseTreeA = require('../courseTreeA');
 // Mocks
 
 // function mockTrain(red, green, blue, alpha) {
@@ -25,7 +29,8 @@ describe('Course tests', function() {
   // test you create instead of running just once before the draw loop
   // beforeEach lets you setup the objects you want to test in an easy fashion.
   beforeEach(function() {
-  
+    let courseTree = courseTreeA.buildTree();
+    let course = new Course(courseTree);
   });
 
   it('should be an object', function(done) {

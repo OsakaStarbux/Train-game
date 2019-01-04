@@ -30,9 +30,9 @@ function Menu() {
   this.show = function() {
 
     push();
-    resetMatrix()
+    resetMatrix();
     fill(this.menuColor);
-    rectMode(CORNERS)
+    rectMode(CORNERS);
     rect(this.bounds.min.x, this.bounds.min.y, this.bounds.max.x, this.bounds.max.y, 2, 2, 2, 2);
     stroke(255, 255, 255);
     fill(255);
@@ -41,6 +41,6 @@ function Menu() {
     text("START", this.x, this.y);
     pop();
 
-  }
+  };
 
 }

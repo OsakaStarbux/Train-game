@@ -1,4 +1,4 @@
-
+ /*jshint esversion: 6 */
 //global variables
 let cnv;
 let track;
@@ -7,7 +7,7 @@ let grass;
 let sea;
 let speed = 1; // Naturals only
 let course;
-let tracks = [];
+let courseTree;
 
 function setup() {
 
@@ -15,31 +15,24 @@ function setup() {
   cnv.mousePressed(handleClick);
   background(200);
   let s1 = createVector(width / 4, height / 2);
-  tracks  = buildCourse(s1, ["RIGHT",
-                             "STRAIGHT",
-                             "LEFT",
-                             "STRAIGHT",
-                             "LEFT",
-                             "STRAIGHT",
-                             "RIGHT",
-                             "RIGHT",
-                             "STRAIGHT"
-                            ]);
-  course = new Course(tracks)
+  courseTree = buildTree();
+
+  course = new Course(courseTree);
+
 
   // colors
   sand = color("#ffd98e");
   grass = color("#97de95");
   sea = color("#6bd5e1");
-  
+
 }
 
 function draw() {
-  background(grass)
+  background(grass);
   // show framerate for debugging
-  //  showFrameRate();
+  //  frameRate();
   // show camera position for debugging
-  //showCameraPos(course.train.x, course.train.y);
+  // showCameraPos(course.train.x, course.train.y);
 
   // dived the value by 2 to compensate for scaling in the draw functions
   // add some fraction of the screen width and height to the x and y

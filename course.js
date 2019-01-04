@@ -1,29 +1,36 @@
+ /*jshint esversion: 6 */
 // a course constructor function
 //
-// consumes an array of type TracKSection and produces a Course
+// consumes a tree of type courseTree and produces a Course
 // Holds and updates our position in the course
 
-function Course(trackSections) {
+function Course(courseTree) {
 
-  this.trackSections = trackSections
-  this.currentStep = 0;
-  this.currentTrackSection = this.trackSections[this.currentStep];
-  this.train = new Train(this.currentTrackSection);
+  this.courseTree = courseTree;
+  this.currentNode = courseTree.root;
+
+  this.train = new Train(this.currentNode);
   this.isFinished = function(){
-    return this.currentStep >= this.trackSections.length - 1;
-  }
+    console.log("current node val: " + this.currentNode.value);
+    console.log("current node is leaf?: " + this.currentNode.isLeaf);
+    return this.currentNode.isLeaf;
+  };
   this.currentState = new StartMenu();
 
-  this.incrementCurrentStep = function(){
-    this.currentStep += 1;
-  }
+  this.getNextNode = function(){
+    // refresh the next node for all nodes in the tree
+    this.courseTree.getNextNode();
+    //assign nextnode
+  //  this.nextNode = this.currentNode.nextNode;
+    console.log( "course currentNode next node value: " + this.currentNode.nextNode.value);
+    this.currentNode = this.currentNode.nextNode;
+  };
 
   this.resetTrain = function(){
-    if (this.currentStep <= this.trackSections.length - 1){
-      this.currentTrackSection = this.trackSections[this.currentStep];
-    }
-    this.train = new Train(this.currentTrackSection);
-  }
+  
+    // set the current train to a new train on the current node
+    this.train = new Train(this.currentNode);
+  };
 
   this.set_state = function(newState) {
     // if the cuurent state is not empty
@@ -46,10 +53,8 @@ function Course(trackSections) {
 
   this.showTracks = function() {
 
-    this.trackSections.forEach(function(section) {
-      section.show();
-    });
-  }
+    this.courseTree.draw();
+  };
 }
 
 function StartMenu() {
@@ -57,19 +62,19 @@ function StartMenu() {
     this.menu = new Menu();
 
     this.handleClick = function(){
-      console.log("StartMenu: clcik detected")
+      console.log("StartMenu: clcik detected");
       let mousePos = createVector(mouseX, mouseY);
       if (this.menu.contains(mousePos)){
-        console.log("click inside menu bounds")
+        console.log("click inside menu bounds");
         course.set_state(new Countdown());
       }
 
-    }
+    };
 
     this.entryActions = function(){
-      console.log("Current state: StartMenu")
+      console.log("Current state: StartMenu");
       this.startTime = millis();
-    }
+    };
 
     this.update = function(wrapper) {
 
@@ -88,7 +93,7 @@ function StartMenu() {
 
     this.exitActions = function(){
       // teardown and do things only once on exit
-    }
+    };
 
 }
 
@@ -99,8 +104,8 @@ function Countdown() {
   this.startMillis = 0;
 
   this.handleClick = function(){
-    console.log("Countdown: clcik detected")
-  }
+    console.log("Countdown: clcik detected");
+  };
 
   this.showCountdown = function(count){
     let countText;
@@ -116,13 +121,13 @@ function Countdown() {
     textAlign(CENTER, CENTER);
     text(countText, width / 2, height / 2);
     pop();
-  }
+  };
 
   this.entryActions = function(wrapper){
     // setup and do things only once on entry
-    console.log("Current state: Countdown")
+    console.log("Current state: Countdown");
      this.startMillis = millis();
-  }
+  };
 
   this.update = function(wrapper) {
     // do someething on every update call
@@ -152,20 +157,22 @@ function Countdown() {
 
   this.exitActions = function(wrapper){
     // teardown and do things only once on exit
-  }
+  };
 
 }
 
 function LeadIn(){
 
   this.handleClick = function(){
-    console.log("LeadIn: clcik detected")
-  }
+    console.log("LeadIn: clcik detected");
+  };
 
   this.entryActions = function(wrapper){
     // setup and do things only once on entry
-    console.log("Current state: LeadIn")
-  }
+    console.log("Current state: LeadIn");
+
+
+  };
 
   this.update = function(wrapper) {
     // do someething on every update call
@@ -181,7 +188,7 @@ function LeadIn(){
     if (wrapper.train.hasFinishedCurrentSection) {
       // switch to next section (increment course currentStep)
 
-      console.log("wrapper.train.hasFinishedCurrentSection")
+      console.log("wrapper.train.hasFinishedCurrentSection");
       wrapper.set_state(new EnRoute());
     }
 
@@ -190,7 +197,7 @@ function LeadIn(){
   this.exitActions = function(wrapper){
     // teardown and do things only once on exit
 
-  }
+  };
 
 }
 
@@ -198,17 +205,18 @@ function LeadIn(){
 function EnRoute(){
 
   this.handleClick = function(){
-    console.log("EnRoute: clcik detected")
-  }
+    console.log("EnRoute: clcik detected");
+  };
 
   this.entryActions = function(wrapper){
     // setup and do things only once on entry
+    wrapper.getNextNode();
+    wrapper.resetTrain();
 
-    wrapper.incrementCurrentStep();
-    wrapper.resetTrain()
 
-    console.log("Current state: EnRoute")
-  }
+
+    console.log("Current state: EnRoute");
+  };
 
   this.update = function(wrapper) {
     // do someething on every update call
@@ -224,7 +232,7 @@ function EnRoute(){
 
     // if the track section is finished
     if (wrapper.train.hasFinishedCurrentSection) {
-      console.log("train.hasFinishedCurrentSection")
+      console.log("train.hasFinishedCurrentSection");
       // switch to next section (increment course currentStep)
       // or if the course is finished: set state GameOver
       if (wrapper.isFinished()) {
@@ -240,21 +248,21 @@ function EnRoute(){
   this.exitActions = function(wrapper){
     // teardown and do things only once on exit
 
-  }
+  };
 
 }
 
 function GameOver(){
 
   this.handleClick = function(){
-    console.log("GameOver: clcik detected")
-  }
+    console.log("GameOver: clcik detected");
+  };
 
   this.entryActions = function(wrapper){
     // setup and do things only once on entry
-    console.log("Current state: GameOver")
+    console.log("Current state: GameOver");
 
-  }
+  };
 
   this.update = function(wrapper) {
     // do someething on every update call
@@ -268,5 +276,8 @@ function GameOver(){
 
   this.exitActions = function(wrapper){
     // teardown and do things only once on exit
-  }
+  };
 }
+
+
+// module.exports = Course;

@@ -6,14 +6,18 @@
   should be assigned to options for when no option object is
   passed.
 */
+
 // a train constructor function
-function Train(trackSection) {
+// consumes a node produces a train
+
+function Train(node) {
 
   this.length = 100;
   this.width = 40;
   this.angle = 0;
-  this.currentTrackSection = trackSection;
-  this.posAngles = this.currentTrackSection.posAngles;
+  this.node = node;
+
+  this.posAngles = this.node.trackSection.posAngles;
   this.x = this.posAngles[0].x;
 	this.y = this.posAngles[0].y;
   this.currentPos = 1; // skip the first pos to stop repeats

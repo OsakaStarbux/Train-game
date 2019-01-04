@@ -1,3 +1,5 @@
+ /*jshint esversion: 6 */
+
 // takes a vector point and a curve direction: LEFT, RIGHT, STRAIGHT
 // produces a BezierCurve of that type
 function calcCurveFromPoint(pointVector, direction) {
@@ -29,8 +31,8 @@ function calcCurveFromPoint(pointVector, direction) {
     case "STRAIGHT":
 
       b_offset = createVector(0, 0);
-      c_offset = createVector(500, 0)
-      d_offset = createVector(500, 0)
+      c_offset = createVector(500, 0);
+      d_offset = createVector(500, 0);
 
       }
 
@@ -39,26 +41,11 @@ function calcCurveFromPoint(pointVector, direction) {
   d = p5.Vector.add(a, d_offset);
 
   curve = new BezierCurve(a, b, c, d);
-  return curve
+  return curve;
 
 }
 
-
-// A function that consumes a startPoint vector and
-// an array of directions and returns an array of tracks
-function buildCourse(startPoint, directions){
-	let tracks = [];
-  let firstTrack = new TrackSection(startPoint,directions[0]);
-  tracks.push(firstTrack);
-
-  for (let i = 1; i < directions.length; i++){
-    let nextTrack	= new TrackSection(tracks[i - 1].endpoint, directions[i]);
-  	tracks.push(nextTrack);
-  }
-  console.log("Track count: " + tracks.length);
-  return tracks;
-}
-
+// A function that draws the current frame rate to the canvas
 function showFrameRate(){
 var fps = frameRate();
   if (fps > highest) {
@@ -76,7 +63,7 @@ function showCameraPos(x, y){
   fill(255);
   noStroke();
   textSize(24);
-  text(`Camera: x: ${x.toFixed(0)}, y: ${y.toFixed(0)}`, 150, height - 10)
+  text(`Camera: x: ${x.toFixed(0)}, y: ${y.toFixed(0)}`, 150, height - 10);
 
 }
 
@@ -98,6 +85,6 @@ function containsPoint(topLeft, bottomRight, point){
   return point.x > topLeft.x &&
           point.x < bottomRight.x &&
           point.y > topLeft.y &&
-          point.y < bottomRight.y
+          point.y < bottomRight.y;
 
 }
