@@ -30,12 +30,15 @@ function Signal(pos) {
   };
 
   this.show = function() {
-    //scale(0.75);
+
     // draw post
+    push();
+    scale(0.5);
     fill(255);
     noStroke();
     rectMode(CENTER);
     rect(pos.x, pos.y, 12, 300, 20, 20, 0, 0);
+
      // Draw bounding box for debugging
     // push();
     // rectMode(CORNER);
@@ -55,7 +58,7 @@ function Signal(pos) {
       this.redSpectacleColor = this.red;
     }
 
-    push();
+
     translate(pos.x, pos.y - 100);
     rotate(this.rotation);
     noStroke();

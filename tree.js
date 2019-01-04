@@ -26,6 +26,7 @@ function Node(val, direction) {
   this.value = val;
   this.trackSection = new TrackSection(val, direction);
   this.signal = null;
+  this.hasSignal = false;
   this.left = null;
   this.right = null;
   this.isGoal = false;
@@ -45,6 +46,15 @@ Node.prototype.draw = function() {
     //do something with the parent
     if (this.parent.left !== null && this.parent.right !== null){
       // this node is one of two brnaches and needs a signal
+      this.hasSignal = true;
+      let leftBranchPos = createVector(this.value.x, this.value.y - 200);
+      let rightBranchPos = createVector(this.value.x, this.value.y + 200);
+      if (this.parent.left === this){
+        // this is a left branch
+        this.signal = new Signal(leftBranchPos);
+      } else {
+        this.signal = new Signal(rightBranchPos);
+      }
 
     }
   }
@@ -138,17 +148,15 @@ Node.prototype.drawNode = function() {
   }
   // draw the node's track section
   this.trackSection.draw();
-// draw the nodes signal
-
-};
-
-Node.prototype.signal = function() {
-  if (this.isOpen === true) {
-    // draw differently if the node is open
-  } else {
-    // draw differently if the node is closed
+  // draw the node's signal
+  if (this.hasSignal){
+    this.signal.show();
   }
+
+
 };
+
+
 
 Node.prototype.addNodeLeft = function(data, direction) {
   let newNode = new Node(data, direction);
