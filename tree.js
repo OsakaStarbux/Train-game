@@ -51,9 +51,9 @@ Node.prototype.draw = function() {
       let rightBranchPos = createVector(this.value.x, this.value.y + 200);
       if (this.parent.left === this){
         // this is a left branch
-        this.signal = new Signal(leftBranchPos);
+        this.signal = new Signal(this,leftBranchPos);
       } else {
-        this.signal = new Signal(rightBranchPos);
+        this.signal = new Signal(this,rightBranchPos);
       }
 
     }

@@ -22,7 +22,7 @@ function Train(node) {
 	this.y = this.posAngles[0].y;
   this.currentPos = 1; // skip the first pos to stop repeats
   this.camera = createVector((-this.x + width / 4) * 2, (-this.y + height) * 2);
-  this.hasFinishedCurrentSection = false
+  this.hasFinishedCurrentSection = false;
 
   this.update = function(speed) {
 
@@ -42,7 +42,7 @@ function Train(node) {
   this.show = function() {
 
     push();
-    scale(0.5)
+    scale(0.5);
     strokeWeight(1);
     stroke("red");
     fill(200);

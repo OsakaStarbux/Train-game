@@ -52,6 +52,10 @@ function buildTree(){
 
 
   root.right.right.right.right.isGoal = true;
+  root.right.isOpen = false;
+  root.left.left.right.isOpen = false;
+  root.left.isOpen = true;
+
 
   return courseTreeA;
 }

@@ -1,12 +1,13 @@
 
-function Signal(pos) {
+function Signal(node, pos) {
+  this.node = node;
   this.pos = pos;
   this.bounds = {
     min:{ x: this.pos.x - 90, y: this.pos.y - 170},
     max:{ x: this.pos.x + 15, y: this.pos.y + 155}
   };
 
-  this.open = true;
+  this.open = this.node.isOpen;
   this.rotation = 0;
   this.green = color(0, 255, 0);
   this.darkgreen = color(0, 100, 0);
@@ -48,7 +49,9 @@ function Signal(pos) {
     // rect(this.pos.x - 90,this.pos.y - 170, 100, 320);
     // pop();
 
-    if (this.open) {
+
+// use the signal's parent node' isOpen Boolean to draw open or closed
+    if (this.node.isOpen) {
       this.rotation = PI / 4;
       this.greenSpectacleColor = this.green;
       this.redSpectacleColor = this.darkred;
