@@ -1,4 +1,4 @@
-
+ /*jshint esversion: 6 */
 // a menu constructor function
 function Menu() {
 
@@ -8,14 +8,14 @@ function Menu() {
   this.bounds = {
     min:{ x: this.x - width / 4, y: this.y - height / 4},
     max:{ x: this.x + width / 4, y: this.y + height / 4}
-  }
+  };
 
   this.menuColor = color(0,0,0,200);
 
   this.contains = function(point){
    return point.x > this.bounds.min.x && point.x  < this.bounds.max.x &&
-     point.y > this.bounds.min.y && point.y < this.bounds.max.y
-   }
+     point.y > this.bounds.min.y && point.y < this.bounds.max.y;
+   };
 
   this.update = function() {
     let mousePos = createVector(mouseX, mouseY);

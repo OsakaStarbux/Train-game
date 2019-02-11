@@ -7,7 +7,6 @@ function Signal(node, pos) {
     max:{ x: this.pos.x + 15, y: this.pos.y + 155}
   };
 
-  this.open = this.node.isOpen;
   this.rotation = 0;
   this.green = color(0, 255, 0);
   this.darkgreen = color(0, 100, 0);
@@ -18,37 +17,37 @@ function Signal(node, pos) {
   this.redSpectacleColor = this.darkred;
 
   this.toggle = function(){
-    if (this.open){
-      this.open = false;
+    if (this.node.isOpen){
+      this.node.isOpen = false;
     } else {
-      this.open = true;
+      this.node.isOpen = true;
     }
   };
 
   this.contains = function(point){
-    return point.x > this.bounds.min.x && point.x < this.bounds.max.x &&
-      point.y > this.bounds.min.y && point.y < this.bounds.max.y;
-  };
+    if (point.x > this.bounds.min.x &&
+      point.x < this.bounds.max.x &&
+      point.y > this.bounds.min.y &&
+      point.y < this.bounds.max.y){
+        return true;
+      } else {
+        return false;
+      }
+    };
 
   this.show = function() {
 
+
+
+
     // draw post
     push();
-    scale(0.5);
+
+    scale(0.5); // scales whole signal
     fill(255);
     noStroke();
     rectMode(CENTER);
     rect(pos.x, pos.y, 12, 300, 20, 20, 0, 0);
-
-     // Draw bounding box for debugging
-    // push();
-    // rectMode(CORNER);
-    // noFill();
-    // stroke(0,150,250);
-    // strokeWeight(2);
-    // rect(this.pos.x - 90,this.pos.y - 170, 100, 320);
-    // pop();
-
 
 // use the signal's parent node' isOpen Boolean to draw open or closed
     if (this.node.isOpen) {
@@ -73,11 +72,13 @@ function Signal(node, pos) {
     rect(-85, 10, 10, 20);
     //spectacle frame and pivot mount
     fill(0);
+
     push();
     translate(0, 0);
     rotate(PI / 4);
     rect(5, 5, 20, 20, 5, 5, 5, 5);
     pop();
+
     rect(0, 10, 35, 20, 0, 20, 20, 0);
     // red spectacle
     fill(this.redSpectacleColor);
@@ -88,5 +89,6 @@ function Signal(node, pos) {
     ellipse(9, 12, 12, 12);
     pop();
   };
+
 
 }

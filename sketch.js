@@ -11,14 +11,13 @@ let courseTree;
 
 function setup() {
 
-  cnv = createCanvas(windowWidth, windowHeight);
-  cnv.mousePressed(handleClick);
+  cnv = createCanvas(1200, 400);
+  cnv.mouseClicked(handleClick);
   background(200);
   let s1 = createVector(width / 4, height / 2);
   courseTree = buildTree();
 
   course = new Course(courseTree);
-
 
   // colors
   sand = color("#ffd98e");
@@ -32,17 +31,24 @@ function draw() {
   // show framerate for debugging
   //  frameRate();
   // show camera position for debugging
-  // showCameraPos(course.train.x, course.train.y);
+  showTrainPos();
+  // show mouse position for debugging
+  showMousePos();
 
-  // dived the value by 2 to compensate for scaling in the draw functions
+  showAdjustedMousePos();
+
+  showWidthHeight();
+  // divide the value by 2 to compensate for scaling in the draw functions
   // add some fraction of the screen width and height to the x and y
   // to position them on the screen
-  translate(-course.train.x / 2 + width / 4, -course.train.y /2 + height / 2);
+  translate(offsetX(course.train.x),offsetY(course.train.y));
   // course update and show
   course.update();
 
 }
 
 function handleClick(){
-  course.currentState.handleClick();
+
+  course.currentState.handleClick(course.courseTree);
+
 }

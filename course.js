@@ -11,8 +11,7 @@ function Course(courseTree) {
 
   this.train = new Train(this.currentNode);
   this.isFinished = function(){
-    console.log("current node val: " + this.currentNode.value);
-    console.log("current node is leaf?: " + this.currentNode.isLeaf);
+
     return this.currentNode.isLeaf;
   };
   this.currentState = new StartMenu();
@@ -22,12 +21,12 @@ function Course(courseTree) {
     this.courseTree.getNextNode();
     //assign nextnode
   //  this.nextNode = this.currentNode.nextNode;
-    console.log( "course currentNode next node value: " + this.currentNode.nextNode.value);
+
     this.currentNode = this.currentNode.nextNode;
   };
 
   this.resetTrain = function(){
-  
+
     // set the current train to a new train on the current node
     this.train = new Train(this.currentNode);
   };
@@ -49,6 +48,7 @@ function Course(courseTree) {
     state object. We need a reference back to the wrapper
     */
     this.currentState.update(this); // pass wrapper class "this" Course
+
   };
 
   this.showTracks = function() {
@@ -61,7 +61,7 @@ function StartMenu() {
 
     this.menu = new Menu();
 
-    this.handleClick = function(){
+    this.handleClick = function(tree){
       console.log("StartMenu: clcik detected");
       let mousePos = createVector(mouseX, mouseY);
       if (this.menu.contains(mousePos)){
@@ -103,7 +103,7 @@ function Countdown() {
   this.period = 1000;
   this.startMillis = 0;
 
-  this.handleClick = function(){
+  this.handleClick = function(tree){
     console.log("Countdown: clcik detected");
   };
 
@@ -163,8 +163,8 @@ function Countdown() {
 
 function LeadIn(){
 
-  this.handleClick = function(){
-    console.log("LeadIn: clcik detected");
+  this.handleClick = function(tree){
+    tree.checkTreeClicked();
   };
 
   this.entryActions = function(wrapper){
@@ -182,11 +182,14 @@ function LeadIn(){
     wrapper.train.update(speed);
     //show the train
     wrapper.train.show();
+
+
+
     //if the track section is finished: set next track section
     // This is the first track section so we won't check
     // if the course is finished
     if (wrapper.train.hasFinishedCurrentSection) {
-      // switch to next section (increment course currentStep)
+      // switch to next section
 
       console.log("wrapper.train.hasFinishedCurrentSection");
       wrapper.set_state(new EnRoute());
@@ -199,13 +202,16 @@ function LeadIn(){
 
   };
 
+
+
 }
 
 
 function EnRoute(){
 
-  this.handleClick = function(){
-    console.log("EnRoute: clcik detected");
+  this.handleClick = function(tree){
+    console.log("EnRoute: click detected");
+    tree.checkTreeClicked();
   };
 
   this.entryActions = function(wrapper){
@@ -254,8 +260,8 @@ function EnRoute(){
 
 function GameOver(){
 
-  this.handleClick = function(){
-    console.log("GameOver: clcik detected");
+  this.handleClick = function(tree){
+    console.log("GameOver: click detected");
   };
 
   this.entryActions = function(wrapper){

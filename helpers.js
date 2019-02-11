@@ -59,13 +59,38 @@ var fps = frameRate();
 
 }
 
-function showCameraPos(x, y){
+function showTrainPos(){
   fill(255);
   noStroke();
   textSize(24);
-  text(`Camera: x: ${x.toFixed(0)}, y: ${y.toFixed(0)}`, 150, height - 10);
+  text(`Train pos: x: ${course.train.x.toFixed(0)}, y: ${course.train.y.toFixed(0)}`, 150, height - 10);
 
 }
+
+function showMousePos(){
+  fill(255);
+  noStroke();
+  textSize(24);
+  text(`Mouse: x: ${mouseX.toFixed(0)}, y: ${mouseY.toFixed(0)}`, 550, height - 10);
+
+}
+
+function showAdjustedMousePos(){
+  fill(255);
+  noStroke();
+  textSize(24);
+  text(`Adjusted Mouse: x: ${adjustX(mouseX).toFixed(0)}, y: ${adjustY(mouseY).toFixed(0)}`, 850, height - 10);
+
+}
+
+function showWidthHeight(){
+  fill(255);
+  noStroke();
+  textSize(24);
+  text(`Width: ${width.toFixed(0)}, Height: ${height.toFixed(0)}`, 150, 20);
+
+}
+
 
 // Consumes an array of points and draws a curve using p5 curveVertex
 function curveFromArray(array) {
@@ -79,12 +104,36 @@ function curveFromArray(array) {
 
   endShape();
 }
-// Consumes rectangle boundary limits: leftX, rightX, topY, bottomY, pointVector)
-// return true if the point is withn the boundary, false if not
+
+
+// All purpose click detection function
+// Consumes rectangle rectangle corner vectors (topleft, bottomright, pointVector)
+// returns true if the point is withn the boundary, false if not
 function containsPoint(topLeft, bottomRight, point){
   return point.x > topLeft.x &&
           point.x < bottomRight.x &&
           point.y > topLeft.y &&
           point.y < bottomRight.y;
 
+}
+
+
+// convert window coordinates to canvas coordinates
+// TODO: make this work
+function adjustX(val){
+  return 100 + val - course.train.x / 2;
+}
+
+function adjustY(val){
+  return (val - course.train.y - height / 2) * 2;
+}
+
+// offset functions to place the viewport on the canvas
+
+function offsetX(val){
+  return -val / 2 + width / 4;
+}
+
+function offsetY(val){
+  return -val / 2 + height / 2;
 }

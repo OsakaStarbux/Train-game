@@ -14,6 +14,7 @@ Tree.prototype.toggleAll = function() {
 };
 
 Tree.prototype.checkTreeClicked = function() {
+
   this.root.checkNodeClicked();
 };
 
@@ -21,9 +22,10 @@ Tree.prototype.getNextNode = function() {
   this.root.getNextNode();
 };
 
-function Node(val, direction) {
+function Node(val, direction, name) {
+  this.name = name;
   this.parent = null;
-  this.value = val;
+  this.value = val; // val is a vector
   this.trackSection = new TrackSection(val, direction);
   this.signal = null;
   this.hasSignal = false;
@@ -90,46 +92,84 @@ Node.prototype.getNextNode = function() {
 };
 
 Node.prototype.checkNodeClicked = function() {
+
   // if left node exists call recursively
   if (this.left != null) {
     this.left.checkNodeClicked();
   }
+// adjust the click position for the camera translation
+
+  let adjustedClickPosition = createVector(adjustX(mouseX), adjustY(mouseY));
 
 
-  let nodePosition = createVector(this.value.x, this.value.y);
-  let clickPosition = createVector(mouseX, mouseY);
-  // do something to the current node
-  if (nodePosition.dist(clickPosition) < 10) {
-    this.clicked();
+  if (this.hasSignal){
+    console.log(`signal ${this.name} position: ${this.signal.pos.x.toFixed(0)} ${this.signal.pos.y.toFixed(0)}`);
   }
+
+  // do something to the current node
+  if (this.hasSignal){
+    if (this.signal.contains(adjustedClickPosition)) {
+      console.log(`signal ${this.name} contains clickpos ${adjustedClickPosition.x.toFixed(0)}, ${adjustedClickPosition.y.toFixed(0)}`);
+      this.clicked();
+    } else {
+      console.log(`signal ${this.name} does not contain clickpos ${adjustedClickPosition.x.toFixed(0)}, ${adjustedClickPosition.y.toFixed(0)}`);
+    }
+  }
+
+  // if (this.hasSignal){
+  //   if (overlaps(clickPosition,
+  //      createVector(this.signal.bounds.min.x,this.signal.bounds.min.y),
+  //       createVector(this.signal.bounds.max.x,this.signal.bounds.max.y))) {
+  //     console.log(`signal ${this.name} contains clickpos ${clickPosition.x.toFixed(0)}, ${clickPosition.y.toFixed(0)}`);
+  //     this.clicked();
+  //   } else {
+  //     console.log(`signal ${this.name} doesnt conatin clickpos ${clickPosition.x.toFixed(0)}, ${clickPosition.y.toFixed(0)}`);
+  //   }
+  // }
+
 
   // if left node exists call recursively
   if (this.right != null) {
     this.right.checkNodeClicked();
   }
+
 };
 
-Node.prototype.toggleAll = function() {
-  // if left node exists call recursively
-  if (this.left != null) {
-    this.left.toggleAll();
-  }
-
-
-  let nodePosition = createVector(this.value.x, this.value.y);
-  let clickPosition = createVector(mouseX, mouseY);
-  // do something to the current node
-  this.toggleSwitch();
-
-  // if left node exists call recursively
-  if (this.right != null) {
-    this.right.toggleAll();
-  }
-};
 
 Node.prototype.clicked = function() {
-
+  console.log(`clicked was called on ${this.name}`);
   this.toggleSwitch();
+};
+
+Node.prototype.showName = function() {
+  let leftBranchPos = createVector(this.value.x, this.value.y - 100);
+  let rightBranchPos = createVector(this.value.x, this.value.y + 100);
+  let pos;
+
+    if (this.parent !== null){
+      if (this.parent.left === this){
+      // this is a left branch
+        pos = leftBranchPos;
+        push();
+          scale(0.5);
+          textSize(50);
+          text(this.name, pos.x, pos.y);
+        pop();
+      } else {
+        pos = rightBranchPos;
+        push();
+          scale(0.5);
+          textSize(50);
+          text(this.name, pos.x, pos.y);
+        pop();
+      }
+    } else {
+      push();
+        scale(0.5);
+        textSize(50);
+        text(this.name, this.value.x, this.value.y - 100);
+      pop();
+    }
 };
 
 Node.prototype.drawNode = function() {
@@ -143,8 +183,6 @@ Node.prototype.drawNode = function() {
       //draw differently if this is tha goal
     this.trackSection.drawGoal();
     }
-  } else {
-    // draw the default node with these options
   }
   // draw the node's track section
   this.trackSection.draw();
@@ -152,35 +190,35 @@ Node.prototype.drawNode = function() {
   if (this.hasSignal){
     this.signal.show();
   }
-
+  this.showName();
 
 };
 
-
-
-Node.prototype.addNodeLeft = function(data, direction) {
-  let newNode = new Node(data, direction);
+Node.prototype.addNodeLeft = function(data, direction, name) {
+  let newNode = new Node(data, direction, name);
   newNode.parent = this;
   this.left = newNode;
 };
 
-Node.prototype.addNodeRight = function(data, direction) {
-  let newNode = new Node(data, direction);
+Node.prototype.addNodeRight = function(data, direction, name) {
+  let newNode = new Node(data, direction, name);
   newNode.parent = this;
   this.right = newNode;
 };
 
 Node.prototype.toggleSwitch = function() {
-  if (this.left === null || this.right === null || this.isGoal === true) {
+  if (!this.hasSignal) {
+    console.log(`returning before toggle, this.hasSignal: ${this.hasSignal}`);
     return;
   }
+  console.log(`toggleSwitch was called on ${this.name}`);
 
-  if (this.left.isOpen === true) {
-    this.left.isOpen = false;
-    this.right.isOpen = true;
+  if (this.parent.left.isOpen === true) {
+    this.parent.left.isOpen = false;
+    this.parent.right.isOpen = true;
   } else {
-    this.left.isOpen = true;
-    this.right.isOpen = false;
+    this.parent.left.isOpen = true;
+    this.parent.right.isOpen = false;
   }
 };
 

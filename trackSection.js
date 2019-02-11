@@ -60,12 +60,10 @@ function TrackSection(startPoint, direction) {
     curveFromArray(this.offsetPointsR);
     pop();
 
-
-
   };
 
   this.drawLeaf = function() {
-    // draw signal
+
     push();
     scale(0.5);
     fill(255,0,0);
@@ -76,7 +74,6 @@ function TrackSection(startPoint, direction) {
     strokeWeight(5);
     noFill();
     rect(135, 0, 50, 30);
-
     pop();
   };
 
@@ -95,19 +92,4 @@ function TrackSection(startPoint, direction) {
 
       pop();
     };
-
-
-
-  this.drawSignal = function() {
-    // draw signal
-    push();
-    scale(0.5);
-    fill(255,0,0);
-    translate(this.endPoint.x, this.endPoint.y);
-    rectMode(CENTER);
-    rect(0, -70, 20, 100);
-
-    pop();
-  };
-
 }
