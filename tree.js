@@ -116,18 +116,6 @@ Node.prototype.checkNodeClicked = function() {
     }
   }
 
-  // if (this.hasSignal){
-  //   if (overlaps(clickPosition,
-  //      createVector(this.signal.bounds.min.x,this.signal.bounds.min.y),
-  //       createVector(this.signal.bounds.max.x,this.signal.bounds.max.y))) {
-  //     console.log(`signal ${this.name} contains clickpos ${clickPosition.x.toFixed(0)}, ${clickPosition.y.toFixed(0)}`);
-  //     this.clicked();
-  //   } else {
-  //     console.log(`signal ${this.name} doesnt conatin clickpos ${clickPosition.x.toFixed(0)}, ${clickPosition.y.toFixed(0)}`);
-  //   }
-  // }
-
-
   // if left node exists call recursively
   if (this.right != null) {
     this.right.checkNodeClicked();
@@ -190,7 +178,8 @@ Node.prototype.drawNode = function() {
   if (this.hasSignal){
     this.signal.show();
   }
-  this.showName();
+  // Show the name above the track section for debugging
+  //  this.showName();
 
 };
 

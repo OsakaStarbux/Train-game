@@ -14,7 +14,7 @@ function setup() {
   cnv = createCanvas(1200, 400);
   cnv.mouseClicked(handleClick);
   background(200);
-  let s1 = createVector(width / 4, height / 2);
+  //let s1 = createVector(width / 4, height / 2);
   courseTree = buildTree();
 
   course = new Course(courseTree);
@@ -31,13 +31,13 @@ function draw() {
   // show framerate for debugging
   //  frameRate();
   // show camera position for debugging
-  showTrainPos();
+//  showTrainPos();
   // show mouse position for debugging
-  showMousePos();
+//  showMousePos();
 
-  showAdjustedMousePos();
+//  showAdjustedMousePos();
 
-  showWidthHeight();
+//  showWidthHeight();
   // divide the value by 2 to compensate for scaling in the draw functions
   // add some fraction of the screen width and height to the x and y
   // to position them on the screen

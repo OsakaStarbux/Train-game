@@ -25,10 +25,10 @@ function Signal(node, pos) {
   };
 
   this.contains = function(point){
-    if (point.x > this.bounds.min.x &&
-      point.x < this.bounds.max.x &&
-      point.y > this.bounds.min.y &&
-      point.y < this.bounds.max.y){
+    if (point.x > this.bounds.min.x - 100 &&
+      point.x < this.bounds.max.x + 100 &&
+      point.y > this.bounds.min.y - 100 &&
+      point.y < this.bounds.max.y + 100){
         return true;
       } else {
         return false;
