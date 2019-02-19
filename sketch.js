@@ -2,9 +2,14 @@
 //global variables
 let cnv;
 let track;
+
+// colors
 let sand;
 let grass;
 let sea;
+let stationColor;
+let trackbedColor;
+
 let speed = 1; // Naturals only
 let course;
 let courseTree;
@@ -23,6 +28,8 @@ function setup() {
   sand = color("#ffd98e");
   grass = color("#97de95");
   sea = color("#6bd5e1");
+  stationColor = color("wheat");
+  trackbedColor = color("tan");
 
 }
 

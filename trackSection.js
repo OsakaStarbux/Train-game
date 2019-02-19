@@ -77,17 +77,33 @@ function TrackSection(startPoint, direction) {
     pop();
   };
 
+    this.drawRoot = function(){
+      // draw root
+      push();
+      scale(0.5);
+
+      translate(this.startPoint.x, this.startPoint.y);
+      rectMode(CENTER);
+      // station building
+      fill(stationColor);
+      rect(0, -50, 200, 100);
+      // trackbed
+      fill(trackbedColor);
+      rect(0, 0, 200, 100);
+
+      pop();
+    };
 
     this.drawGoal = function() {
-      // draw signal
+      // draw goal
       push();
       scale(0.5);
 
       translate(this.endPoint.x, this.endPoint.y);
       rectMode(CENTER);
-      fill("brown");
+      fill(stationColor);
       rect(0, -50, 200, 100);
-      fill(81);
+      fill(trackbedColor);
       rect(0, 0, 200, 100);
 
       pop();

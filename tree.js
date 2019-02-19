@@ -163,6 +163,12 @@ Node.prototype.showName = function() {
 Node.prototype.drawNode = function() {
   push();
   noStroke();
+
+  if (this.parent === null){
+    // This node is the root node
+    this.trackSection.drawRoot();
+  }
+
   if (this.left === null && this.right === null) {
     // draw differently if this is a leaf
     this.trackSection.drawLeaf();
