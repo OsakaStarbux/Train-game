@@ -91,6 +91,17 @@ function showWidthHeight(){
 
 }
 
+function triangleStrip(startX, startY, tWidth, tHeight, stripLength){
+  beginShape(TRIANGLES);
+  for (i = startX; i < stripLength; i += tWidth){
+    vertex(i, startY);
+    vertex(i + tWidth / 2 , startY + tHeight);
+    vertex(i + tWidth, startY);
+  }
+  endShape();
+
+}
+
 
 // Consumes an array of points and draws a curve using p5 curveVertex
 function curveFromArray(array) {

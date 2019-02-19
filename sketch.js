@@ -9,6 +9,8 @@ let grass;
 let sea;
 let stationColor;
 let trackbedColor;
+let woodColor;
+let railColor;
 
 let speed = 1; // Naturals only
 let course;
@@ -30,6 +32,8 @@ function setup() {
   sea = color("#6bd5e1");
   stationColor = color("wheat");
   trackbedColor = color("tan");
+  woodColor = color("#866538");
+  railColor = color(242, 252, 255);
 
 }
 

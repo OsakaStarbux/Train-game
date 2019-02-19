@@ -53,7 +53,7 @@ function TrackSection(startPoint, direction) {
     // draw rails
     push();
     scale(0.5);
-    stroke(242, 252, 255);
+    stroke(railColor);
     strokeWeight(5);
     strokeCap(PROJECT);
     curveFromArray(this.offsetPointsL);
@@ -85,27 +85,118 @@ function TrackSection(startPoint, direction) {
       translate(this.startPoint.x, this.startPoint.y);
       rectMode(CENTER);
       // station building
+      // roof
+      fill(71);
+      rect(0, -155, 200, 50);
+
+      // wall
+      push();
       fill(stationColor);
-      rect(0, -50, 200, 100);
+      rect(0, -90, 200, 80);
+      stroke("green");
+      strokeWeight(5);
+      line(-100, -110, 100, -110);
+      line(-100, -70, 100, -70);
+      line(-100, -50, 100, -50);
+      fill("white");
+      //sign circle
+      ellipse(60,-90,25,25);
+      // name plate
+      fill("green");
+      rect(60, -90, 50,5);
+      pop();
+      // door
+      fill("green");
+      rect(-50, -80, 30, 55);
+      fill("black");
+      rect(-50, -75, 20, 50);
+      // window
+      fill("green");
+      rect(0, -90, 40, 40);
+      fill("black");
+      rect(0, -90, 30, 30);
+      //triangles
+
+      fill(255);
+      triangleStrip(-100, -130, 20, 20, 100);
+
+
+      //platform
+      fill(121);
+      rect(0, -35, 200, 20);
+      fill(201);
+      rect(0, -30, 200, 5);
       // trackbed
       fill(trackbedColor);
-      rect(0, 0, 200, 100);
-
+      rect(0, 0, 200, 55);
+      // rails
+      stroke(railColor);
+      strokeWeight(5);
+      line(-100, -15, 100, -15);
+      line(-100,  15, 100,  15);
       pop();
     };
 
-    this.drawGoal = function() {
-      // draw goal
+    this.drawGoal = function(){
+      // draw root
       push();
       scale(0.5);
 
       translate(this.endPoint.x, this.endPoint.y);
       rectMode(CENTER);
-      fill(stationColor);
-      rect(0, -50, 200, 100);
-      fill(trackbedColor);
-      rect(0, 0, 200, 100);
+      // station building
+      // roof
+      fill(71);
+      rect(0, -155, 200, 50);
 
+      // wall
+      push();
+      fill(stationColor);
+      rect(0, -90, 200, 80);
+      stroke("green");
+      strokeWeight(5);
+      line(-100, -110, 100, -110);
+      line(-100, -70, 100, -70);
+      line(-100, -50, 100, -50);
+      fill("white");
+      //sign circle
+      ellipse(60,-90,25,25);
+      // name plate
+      fill("green");
+      rect(60, -90, 50,5);
+      pop();
+      // door
+      fill("green");
+      rect(-50, -80, 30, 55);
+      fill("black");
+      rect(-50, -75, 20, 50);
+      // window
+      fill("green");
+      rect(0, -90, 40, 40);
+      fill("black");
+      rect(0, -90, 30, 30);
+      //triangles
+
+      fill(255);
+      triangleStrip(-100, -130, 20, 20, 100);
+
+
+      //platform
+      fill(121);
+      rect(0, -35, 200, 20);
+      fill(201);
+      rect(0, -30, 200, 5);
+      // trackbed
+      fill(trackbedColor);
+      rect(0, 0, 200, 55);
+      // rails
+      stroke(railColor);
+      strokeWeight(5);
+      line(-100, -15, 100, -15);
+      line(-100,  15, 100,  15);
       pop();
     };
+
+
+
 }
