@@ -7,6 +7,11 @@ function Signal(node, pos) {
     max:{ x: this.pos.x + 15, y: this.pos.y + 155}
   };
 
+  this.clickBounds = {
+    min:{ x: this.pos.x - 190, y: this.pos.y - 270},
+    max:{ x: this.pos.x + 115, y: this.pos.y + 255}
+  };
+
   this.rotation = 0;
   this.green = color(0, 255, 0);
   this.darkgreen = color(0, 100, 0);
@@ -25,10 +30,10 @@ function Signal(node, pos) {
   };
 
   this.contains = function(point){
-    if (point.x > this.bounds.min.x - 100 &&
-      point.x < this.bounds.max.x + 100 &&
-      point.y > this.bounds.min.y - 100 &&
-      point.y < this.bounds.max.y + 100){
+    if (point.x > this.clickBounds.min.x &&
+      point.x < this.clickBounds.max.x &&
+      point.y > this.clickBounds.min.y &&
+      point.y < this.clickBounds.max.y){
         return true;
       } else {
         return false;
@@ -44,6 +49,16 @@ function Signal(node, pos) {
     push();
 
     scale(0.5); // scales whole signal
+
+    // show clickbounds
+    // push();
+    // rectMode(CORNERS);
+    // noFill();
+    // stroke(255, 204, 100);
+    // strokeWeight(5);
+    // rect(this.clickBounds.min.x, this.clickBounds.min.y, this.clickBounds.max.x, this.clickBounds.max.y);
+    // pop();
+
     fill(255);
     noStroke();
     rectMode(CENTER);
