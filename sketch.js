@@ -40,7 +40,7 @@ function setup() {
   woodColor = color("#866538");
   railColor = color(242, 252, 255);
   sleeperColor = color(81, 68, 63);
-  treeColors = ["olive","olivedrab","green","yellowgreen","forestgreen", "greenyellow"];
+  treeColors = ["olivedrab","green","yellowgreen","forestgreen", "greenyellow", "darkgreen","lawngreen"];
   // create array of trees for the scene
   forest = new Forest(-150, -100);
   sceneItems.push(forest);

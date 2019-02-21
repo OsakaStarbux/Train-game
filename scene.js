@@ -8,7 +8,7 @@ function Forest(x, y) {
   this.trees = [];
   this.init = function(){
     // populate trees
-    for (i = 0; i <= 5; i++){
+    for (i = 0; i <= 10; i++){
       let x = random(floor(this.min.x), floor(this.max.x));
       let y = random(floor(this.min.y), floor(this.max.y));
       let newTree = new SceneTree(x, y);
@@ -50,29 +50,29 @@ function SceneTree(x, y){
     fill(this.color);
       beginShape();
       //apex
-      vertex(0, 0);
+      vertex(0, -65);
       // right top
-      vertex(15, 20);
-      vertex(5, 20);
+      vertex(15, -45);
+      vertex(5, -45);
       //right middle
-      vertex(20, 40);
-      vertex(10, 40);
+      vertex(20, -25);
+      vertex(10, -25);
       //right bottom
-      vertex(25, 60);
+      vertex(25, -5);
       // left bottom
-      vertex(-25, 60);
+      vertex(-25, -5);
 
       // left middle
-      vertex(-10, 40);
-      vertex(-20, 40);
+      vertex(-10, -25);
+      vertex(-20, -25);
       // left top
-      vertex(-5, 20);
-      vertex(-15, 20);
+      vertex(-5, -45);
+      vertex(-15, -45);
       endShape(CLOSE);
 
       fill(woodColor);
       rectMode(CENTER);
-      rect(0, 65, 5, 15);
+      rect(0, 0, 5, 15);
       pop();
   }
   };
