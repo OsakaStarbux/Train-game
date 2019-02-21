@@ -1,10 +1,10 @@
 /*jshint esversion: 6 */
-function buildTreeA(){
+function buildTreeB(){
 
-  let courseTreeA = new Tree();
+  let courseTreeB = new Tree();
   let rootVector = createVector(0, 0); //cnv.height / 2
   let root = new Node(rootVector, "STRAIGHT", "root");
-  courseTreeA.root = root;
+  courseTreeB.root = root;
 
 // left
 
@@ -32,6 +32,22 @@ function buildTreeA(){
           root.left.left.right.trackSection.endPoint.x,
           root.left.left.right.trackSection.endPoint.y), "STRAIGHT", "root-L-L-R-R");
 
+  root.left.left.right.right.addNodeRight(createVector(
+      root.left.left.right.right.trackSection.endPoint.x,
+      root.left.left.right.right.trackSection.endPoint.y), "RIGHT", "root-L-L-R-R-R");
+
+      root.left.left.right.right.addNodeLeft(createVector(
+          root.left.left.right.right.trackSection.endPoint.x,
+          root.left.left.right.right.trackSection.endPoint.y), "LEFT", "root-L-L-R-R-R-L");
+
+      root.left.left.right.right.right.addNodeRight(createVector(
+          root.left.left.right.right.right.trackSection.endPoint.x,
+          root.left.left.right.right.right.trackSection.endPoint.y), "STRAIGHT", "root-L-L-R-R-R-R");
+
+          root.left.left.right.right.left.addNodeRight(createVector(
+              root.left.left.right.right.left.trackSection.endPoint.x,
+              root.left.left.right.right.left.trackSection.endPoint.y), "STRAIGHT", "root-L-L-R-R-R-R");
+
 // right
 
   root.addNodeRight(createVector(
@@ -51,13 +67,14 @@ function buildTreeA(){
           root.right.right.right.trackSection.endPoint.y), "STRAIGHT", "root-R-R-R-R");
 
 
-  root.right.right.right.right.isGoal = true;
-  root.right.isOpen = false;
+  root.left.left.right.right.right.right.isGoal = true;
+  root.left.isOpen = false;
+  root.right.isOpen = true;
   root.left.left.right.isOpen = false;
-  root.left.isOpen = true;
+  root.left.left.right.right.right.isOpen = false;
 
 
-  return courseTreeA;
+  return courseTreeB;
 }
 
           // module.exports.buildTree = buildTree();

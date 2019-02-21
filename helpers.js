@@ -91,6 +91,14 @@ function showWidthHeight(){
 
 }
 
+function showDebugInfo(){
+  frameRate();
+  showTrainPos();
+  showMousePos();
+  showAdjustedMousePos();
+  showWidthHeight();
+}
+
 function triangleStrip(startX, startY, tWidth, tHeight, stripLength){
   beginShape(TRIANGLES);
   for (i = startX; i < stripLength; i += tWidth){
@@ -101,6 +109,7 @@ function triangleStrip(startX, startY, tWidth, tHeight, stripLength){
   endShape();
 
 }
+
 
 
 // Consumes an array of points and draws a curve using p5 curveVertex

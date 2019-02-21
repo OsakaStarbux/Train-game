@@ -6,11 +6,16 @@ let track;
 // colors
 let sand;
 let grass;
-let sea;
+let seaColor;
 let stationColor;
 let trackbedColor;
 let woodColor;
 let railColor;
+let sleeperColor;
+let treeColors = [];
+let sceneItems = [];
+let forest;
+
 
 let speed = 1; // Naturals only
 let course;
@@ -21,40 +26,52 @@ function setup() {
   cnv = createCanvas(1200, 400);
   cnv.mouseClicked(handleClick);
   background(200);
-  //let s1 = createVector(width / 4, height / 2);
-  courseTree = buildTree();
+
+  courseTree = buildTreeB();
 
   course = new Course(courseTree);
 
   // colors
   sand = color("#ffd98e");
   grass = color("#97de95");
-  sea = color("#6bd5e1");
+  seaColor = color("#6bd5e1");
   stationColor = color("wheat");
   trackbedColor = color("tan");
   woodColor = color("#866538");
   railColor = color(242, 252, 255);
+  sleeperColor = color(81, 68, 63);
+  treeColors = ["olive","olivedrab","green","yellowgreen","forestgreen", "greenyellow"];
+  // create array of trees for the scene
+  forest = new Forest(-150, -100);
+  sceneItems.push(forest);
+  // create windmill for the scene
+  let windmill = new Windmill(550, -20);
+  sceneItems.push(windmill);
+  // create pond for the scene
+  let pond = new Pond(-180, 100);
+  sceneItems.push(pond);
+
+
 
 }
 
 function draw() {
   background(grass);
-  // show framerate for debugging
-  //  frameRate();
-  // show camera position for debugging
-//  showTrainPos();
-  // show mouse position for debugging
-//  showMousePos();
 
-//  showAdjustedMousePos();
+  //showDebugInfo();
 
-//  showWidthHeight();
   // divide the value by 2 to compensate for scaling in the draw functions
   // add some fraction of the screen width and height to the x and y
   // to position them on the screen
-  translate(offsetX(course.train.x),offsetY(course.train.y));
+  translate(offsetX(course.train.x), offsetY(course.train.y));
   // course update and show
   course.update();
+
+  for (let item of sceneItems){
+    item.draw();
+  }
+
+
 
 }
 

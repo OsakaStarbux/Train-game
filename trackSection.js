@@ -43,8 +43,7 @@ function TrackSection(startPoint, direction) {
       scale(0.5);
       translate(this.sleeperPoints[i].x, this.sleeperPoints[i].y);
       rotate(this.sleeperTangents[i]);
-      fill(81, 68, 63);
-
+      fill(sleeperColor);
       noStroke();
       rectMode(CENTER);
       rect(0, 0, 5, 50);
@@ -66,14 +65,29 @@ function TrackSection(startPoint, direction) {
 
     push();
     scale(0.5);
-    fill(255,0,0);
+
+
     translate(this.endPoint.x, this.endPoint.y);
+    fill(sleeperColor);
+    noStroke();
     rectMode(CENTER);
+    rect(70, 0, 5, 50);
+    rect(35, 0, 5, 50);
+    rect(0, 0, 5, 50);
+    // rails
+    stroke(railColor);
+    strokeWeight(5);
+    line(-100, -15, 100, -15);
+    line(-100,  15, 100,  15);
+    noStroke();
+    rectMode(CENTER);
+    fill(255,0,0);
     rect(100, 0, 10, 50);
     stroke(255);
     strokeWeight(5);
     noFill();
     rect(135, 0, 50, 30);
+
     pop();
   };
 
@@ -129,6 +143,14 @@ function TrackSection(startPoint, direction) {
       // trackbed
       fill(trackbedColor);
       rect(0, 0, 200, 55);
+      // sleepers
+      fill(sleeperColor);
+      noStroke();
+      rectMode(CENTER);
+      rect(-70, 0, 5, 50);
+      rect(-35, 0, 5, 50);
+      rect(0, 0, 5, 50);
+
       // rails
       stroke(railColor);
       strokeWeight(5);
@@ -189,11 +211,20 @@ function TrackSection(startPoint, direction) {
       // trackbed
       fill(trackbedColor);
       rect(0, 0, 200, 55);
+      // sleepers
+      fill(sleeperColor);
+      noStroke();
+      rectMode(CENTER);
+      rect(70, 0, 5, 50);
+      rect(35, 0, 5, 50);
+      rect(0, 0, 5, 50);
       // rails
       stroke(railColor);
       strokeWeight(5);
       line(-100, -15, 100, -15);
       line(-100,  15, 100,  15);
+
+
       pop();
     };
 
