@@ -262,12 +262,13 @@ function GameOver(){
 
   this.handleClick = function(tree){
     console.log("GameOver: click detected");
+    course.set_state(new Restart());
   };
 
   this.entryActions = function(wrapper){
     // setup and do things only once on entry
     console.log("Current state: GameOver");
-
+    setResult();
   };
 
   this.update = function(wrapper) {
@@ -276,12 +277,44 @@ function GameOver(){
     wrapper.showTracks();
     //show the train
     wrapper.train.show();
+    push();
+    resetMatrix();
+    fill(255,255,255,200);
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    text(resultMsg, width / 2, height / 2);
+    fill(255,0,255,200);
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    text("Click to play again", width / 2, height / 2 + 50);
+    pop();
+  };
 
+  this.exitActions = function(wrapper){
+    // teardown and do things only once on exit
+  };
+}
+
+function Restart(){
+
+  this.handleClick = function(tree){
+    console.log("Restart: click detected");
+  };
+
+  this.entryActions = function(wrapper){
+    // setup and do things only once on entry
+    console.log("Current state: Restart");
+    setupGame();
+  };
+
+  this.update = function(wrapper) {
 
   };
 
   this.exitActions = function(wrapper){
     // teardown and do things only once on exit
+
+
   };
 }
 

@@ -20,6 +20,7 @@ let forest;
 let speed = 1; // Naturals only
 let course;
 let courseTree;
+let resultMsg;
 
 function setup() {
 
@@ -30,7 +31,7 @@ function setup() {
   courseTree = buildTreeB();
 
   course = new Course(courseTree);
-
+  resultMsg = "";
   // colors
   sand = color("#ffd98e");
   grass = color("#97de95");
@@ -67,11 +68,7 @@ function draw() {
   // course update and show
   course.update();
 
-  for (let item of sceneItems){
-    item.draw();
-  }
-
-
+  updateScenery();
 
 }
 
@@ -79,4 +76,22 @@ function handleClick(){
 
   course.currentState.handleClick(course.courseTree);
 
+}
+
+function setupGame(){
+  courseTree = buildTreeB();
+  course = new Course(courseTree);
+}
+
+function updateScenery(){
+  for (let item of sceneItems){
+    item.draw();
+  }
+}
+function setResult() {
+  if (course.currentNode.isGoal){
+    resultMsg = "Good work! You arrived at your destination!";
+  } else {
+    resultMsg = "Oops! You are stuck on a siding!";
+  }
 }
