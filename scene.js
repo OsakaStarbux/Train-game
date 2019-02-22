@@ -3,12 +3,12 @@
 function Forest(x, y) {
   this.x = x;
   this.y = y;
-  this.min = {x: this.x - 50, y: this.y - 50};
+  this.min = {x: this.x - 75, y: this.y - 75};
   this.max = {x: this.x + 50, y: this.y + 50};
   this.trees = [];
   this.init = function(){
     // populate trees
-    for (i = 0; i <= 10; i++){
+    for (i = 0; i <= 5; i++){
       let x = random(floor(this.min.x), floor(this.max.x));
       let y = random(floor(this.min.y), floor(this.max.y));
       let newTree = new SceneTree(x, y);

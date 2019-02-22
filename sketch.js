@@ -45,13 +45,24 @@ function setup() {
   // create array of trees for the scene
   forest = new Forest(-150, -100);
   sceneItems.push(forest);
+  forest2 = new Forest(550, -200);
+  sceneItems.push(forest2);
+  forest3 = new Forest(1550, -300);
+  sceneItems.push(forest3);
+  forest4 = new Forest(2000, 300);
+  sceneItems.push(forest4);
   // create windmill for the scene
   let windmill = new Windmill(550, -20);
   sceneItems.push(windmill);
+  let windmill2 = new Windmill(2000, -300);
+  sceneItems.push(windmill2);
   // create pond for the scene
   let pond = new Pond(-180, 100);
   sceneItems.push(pond);
-
+  let pond2 = new Pond(1000, -300);
+  sceneItems.push(pond2);
+  let pond3 = new Pond(2000, 0);
+  sceneItems.push(pond3);
 
 
 }
