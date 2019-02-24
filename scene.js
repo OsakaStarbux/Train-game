@@ -91,6 +91,15 @@ function Pond(x, y){
     rectMode(CENTER);
     rect(0, 0, 200, 100, 20, 20, 20, 20);
     rect(100, 50, 100, 50, 20, 20, 20, 20);
+    fill(255);
+    rect(1,0, 10,5);
+    stroke(255);
+    strokeWeight(1);
+    line(0,0,-6,-5);
+    ellipse(-6, -5, 4, 3);
+    fill("orange");
+    noStroke();
+    rect(-10,-4,4,2);
     pop();
   };
 

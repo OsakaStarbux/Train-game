@@ -8,8 +8,8 @@ function Signal(node, pos) {
   };
 
   this.clickBounds = {
-    min:{ x: this.pos.x - 190, y: this.pos.y - 270},
-    max:{ x: this.pos.x + 115, y: this.pos.y + 255}
+    min:{ x: this.pos.x - 190, y: this.pos.y - 190},
+    max:{ x: this.pos.x + 115, y: this.pos.y + 200}
   };
 
   this.rotation = 0;
@@ -50,15 +50,15 @@ function Signal(node, pos) {
 
     scale(0.5); // scales whole signal
 
-    // show clickbounds
-    // push();
-    // rectMode(CORNERS);
-    // noFill();
-    // stroke(255, 204, 100);
-    // strokeWeight(5);
-    // rect(this.clickBounds.min.x, this.clickBounds.min.y, this.clickBounds.max.x, this.clickBounds.max.y);
-    // pop();
-
+    // show click bounds
+    push();
+    rectMode(CORNERS);
+    noFill();
+    stroke(255, 204, 100,100);
+    strokeWeight(5);
+    rect(this.clickBounds.min.x, this.clickBounds.min.y, this.clickBounds.max.x, this.clickBounds.max.y);
+    pop();
+// draw the post
     fill(255);
     noStroke();
     rectMode(CENTER);
