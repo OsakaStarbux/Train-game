@@ -24,7 +24,7 @@ let resultMsg;
 
 function setup() {
 
-  cnv = createCanvas(1200, 400);
+  cnv = createCanvas(windowWidth, windowHeight);
   cnv.mouseClicked(handleClick);
   background(200);
 

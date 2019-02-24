@@ -139,13 +139,13 @@ function containsPoint(topLeft, bottomRight, point){
 
 
 // convert window coordinates to canvas coordinates
-// TODO: make this work
+
 function adjustX(val){
-  return  val - (300) + course.train.x;
+  return  val - (width / 4) + course.train.x;
 }
 
 function adjustY(val){
-  return val - 200;
+  return val - (height / 2);
 }
 
 // offset functions to place the viewport on the canvas
