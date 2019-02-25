@@ -62,17 +62,17 @@ function StartMenu() {
     this.menu = new Menu();
 
     this.handleClick = function(tree){
-      console.log("StartMenu: clcik detected");
+
       let mousePos = createVector(mouseX, mouseY);
       if (this.menu.contains(mousePos)){
-        console.log("click inside menu bounds");
+
         course.set_state(new Countdown());
       }
 
     };
 
     this.entryActions = function(){
-      console.log("Current state: StartMenu");
+
       this.startTime = millis();
     };
 
@@ -104,7 +104,7 @@ function Countdown() {
   this.startMillis = 0;
 
   this.handleClick = function(tree){
-    console.log("Countdown: clcik detected");
+
   };
 
   this.showCountdown = function(count){
@@ -125,7 +125,7 @@ function Countdown() {
 
   this.entryActions = function(wrapper){
     // setup and do things only once on entry
-    console.log("Current state: Countdown");
+
      this.startMillis = millis();
   };
 
@@ -151,7 +151,7 @@ function Countdown() {
 
     if (this.countdown <= 0) {
       wrapper.set_state(new LeadIn());
-      console.log("Setting new state: LeadIn");
+
     }
   };
 
@@ -169,7 +169,7 @@ function LeadIn(){
 
   this.entryActions = function(wrapper){
     // setup and do things only once on entry
-    console.log("Current state: LeadIn");
+
 
 
   };
@@ -191,7 +191,7 @@ function LeadIn(){
     if (wrapper.train.hasFinishedCurrentSection) {
       // switch to next section
 
-      console.log("wrapper.train.hasFinishedCurrentSection");
+
       wrapper.set_state(new EnRoute());
     }
 
@@ -210,7 +210,7 @@ function LeadIn(){
 function EnRoute(){
 
   this.handleClick = function(tree){
-    console.log("EnRoute: click detected");
+
     tree.checkTreeClicked();
   };
 
@@ -221,7 +221,7 @@ function EnRoute(){
 
 
 
-    console.log("Current state: EnRoute");
+
   };
 
   this.update = function(wrapper) {
@@ -238,11 +238,11 @@ function EnRoute(){
 
     // if the track section is finished
     if (wrapper.train.hasFinishedCurrentSection) {
-      console.log("train.hasFinishedCurrentSection");
+
       // switch to next section (increment course currentStep)
       // or if the course is finished: set state GameOver
       if (wrapper.isFinished()) {
-        console.log("course isFiniahed is true");
+
         wrapper.set_state(new GameOver());
       } else {
         wrapper.set_state(new EnRoute());
@@ -261,13 +261,13 @@ function EnRoute(){
 function GameOver(){
 
   this.handleClick = function(tree){
-    console.log("GameOver: click detected");
+
     course.set_state(new Restart());
   };
 
   this.entryActions = function(wrapper){
     // setup and do things only once on entry
-    console.log("Current state: GameOver");
+
     setResult();
   };
 
@@ -298,12 +298,12 @@ function GameOver(){
 function Restart(){
 
   this.handleClick = function(tree){
-    console.log("Restart: click detected");
+
   };
 
   this.entryActions = function(wrapper){
     // setup and do things only once on entry
-    console.log("Current state: Restart");
+  
     setupGame();
   };
 

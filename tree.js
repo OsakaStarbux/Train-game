@@ -101,18 +101,11 @@ Node.prototype.checkNodeClicked = function() {
 
   let adjustedClickPosition = createVector(adjustX(mouseX), adjustY(mouseY));
 
-
-  if (this.hasSignal){
-    console.log(`signal ${this.name} position: ${this.signal.pos.x.toFixed(0)} ${this.signal.pos.y.toFixed(0)}`);
-  }
-
   // do something to the current node
   if (this.hasSignal){
     if (this.signal.contains(adjustedClickPosition)) {
-      console.log(`signal ${this.name} contains clickpos ${adjustedClickPosition.x.toFixed(0)}, ${adjustedClickPosition.y.toFixed(0)}`);
+
       this.clicked();
-    } else {
-      console.log(`signal ${this.name} does not contain clickpos ${adjustedClickPosition.x.toFixed(0)}, ${adjustedClickPosition.y.toFixed(0)}`);
     }
   }
 
@@ -125,7 +118,7 @@ Node.prototype.checkNodeClicked = function() {
 
 
 Node.prototype.clicked = function() {
-  console.log(`clicked was called on ${this.name}`);
+
   this.toggleSwitch();
 };
 
@@ -203,10 +196,10 @@ Node.prototype.addNodeRight = function(data, direction, name) {
 
 Node.prototype.toggleSwitch = function() {
   if (!this.hasSignal) {
-    console.log(`returning before toggle, this.hasSignal: ${this.hasSignal}`);
+
     return;
   }
-  console.log(`toggleSwitch was called on ${this.name}`);
+  
 
   if (this.parent.left.isOpen === true) {
     this.parent.left.isOpen = false;
