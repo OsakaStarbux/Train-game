@@ -1,41 +1,43 @@
  /*jshint esversion: 6 */
-// a track section constructor function
+
 // consumes a start point and direction and produces a tracksection
-function TrackSection(startPoint, direction) {
+class TrackSection {
+  constructor(startPoint, direction){
 
-  this.curve = calcCurveFromPoint(startPoint, direction) ;
-  this.sleeperCount = 15;
-  this.offsetpointCount = 15;
-  this.offsetDistance = 15; // half of the guage
-  this.stepPointCount = 100;
-  this.sleeperPoints = this.curve.equidistantPoints(this.sleeperCount);
-  // offsetPoints params howMany, dist, angle
-  this.offsetPointsL = this.curve.offsetPoints(
-    this.offsetpointCount,
-    this.offsetDistance,
-    HALF_PI
-  );
-  this.offsetPointsR = this.curve.offsetPoints(
-    this.offsetpointCount,
-    this.offsetDistance,
-    HALF_PI + PI
-  );
-  this.sleeperTangents = this.curve.tangentPoints(this.sleeperCount);
-  this.stepPoints = this.curve.equidistantPoints(this.stepPointCount);
-  this.startPoint = startPoint;
-  this.endPoint = this.stepPoints[this.stepPoints.length -1];
-  this.stepTangents = this.curve.tangentPoints(this.stepPointCount);
-  this.posAngles = [];
+      this.curve = calcCurveFromPoint(startPoint, direction) ;
+      this.sleeperCount = 15;
+      this.offsetpointCount = 15;
+      this.offsetDistance = 15; // half of the guage
+      this.stepPointCount = 100;
+      this.sleeperPoints = this.curve.equidistantPoints(this.sleeperCount);
+      // offsetPoints params howMany, dist, angle
+      this.offsetPointsL = this.curve.offsetPoints(
+        this.offsetpointCount,
+        this.offsetDistance,
+        HALF_PI
+      );
+      this.offsetPointsR = this.curve.offsetPoints(
+        this.offsetpointCount,
+        this.offsetDistance,
+        HALF_PI + PI
+      );
+      this.sleeperTangents = this.curve.tangentPoints(this.sleeperCount);
+      this.stepPoints = this.curve.equidistantPoints(this.stepPointCount);
+      this.startPoint = startPoint;
+      this.endPoint = this.stepPoints[this.stepPoints.length -1];
+      this.stepTangents = this.curve.tangentPoints(this.stepPointCount);
+      this.posAngles = [];
 
-  for (let [index, point] of this.stepPoints.entries()) {
-    this.posAngles.push({
-      x: point.x,
-      y: point.y,
-      a: this.stepTangents[index]
-    });
+      for (let [index, point] of this.stepPoints.entries()) {
+        this.posAngles.push({
+          x: point.x,
+          y: point.y,
+          a: this.stepTangents[index]
+        });
+      }
   }
 
-  this.draw = function() {
+  draw() {
     // draw sleepers
 
     for (let i = 0; i < this.sleeperPoints.length; i++) {
@@ -59,9 +61,9 @@ function TrackSection(startPoint, direction) {
     curveFromArray(this.offsetPointsR);
     pop();
 
-  };
+  }
 
-  this.drawLeaf = function() {
+  drawLeaf() {
 
     push();
     scale(0.5);
@@ -87,11 +89,10 @@ function TrackSection(startPoint, direction) {
     strokeWeight(5);
     noFill();
     rect(135, 0, 50, 30);
-
     pop();
-  };
+  }
 
-    this.drawRoot = function(){
+    drawRoot() {
       // draw root
       push();
       scale(0.5);
@@ -134,7 +135,6 @@ function TrackSection(startPoint, direction) {
       fill(255);
       triangleStrip(-100, -130, 20, 20, 100);
 
-
       //platform
       fill(121);
       rect(0, -35, 200, 20);
@@ -157,9 +157,9 @@ function TrackSection(startPoint, direction) {
       line(-100, -15, 100, -15);
       line(-100,  15, 100,  15);
       pop();
-    };
+    }
 
-    this.drawGoal = function(){
+    drawGoal() {
       // draw root
       push();
       scale(0.5);
@@ -198,10 +198,8 @@ function TrackSection(startPoint, direction) {
       fill("black");
       rect(0, -90, 30, 30);
       //triangles
-
       fill(255);
       triangleStrip(-100, -130, 20, 20, 100);
-
 
       //platform
       fill(121);
@@ -226,8 +224,5 @@ function TrackSection(startPoint, direction) {
 
 
       pop();
-    };
-
-
-
+    }
 }

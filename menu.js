@@ -1,23 +1,26 @@
  /*jshint esversion: 6 */
-// a menu constructor function
-function Menu() {
 
-  this.x = width / 2;
-  this.y = height / 2;
+class Menu {
 
-  this.bounds = {
-    min:{ x: this.x - width / 4, y: this.y - height / 4},
-    max:{ x: this.x + width / 4, y: this.y + height / 4}
-  };
+  constructor(){
+    this.x = width / 2;
+    this.y = height / 2;
 
-  this.menuColor = color(0,0,0,200);
+    this.bounds = {
+      min:{ x: this.x - width / 4, y: this.y - height / 4},
+      max:{ x: this.x + width / 4, y: this.y + height / 4}
+    };
 
-  this.contains = function(point){
+    this.menuColor = color(0,0,0,200);
+  }
+
+
+  contains(point) {
    return point.x > this.bounds.min.x && point.x  < this.bounds.max.x &&
      point.y > this.bounds.min.y && point.y < this.bounds.max.y;
-   };
+   }
 
-  this.update = function() {
+  update() {
     let mousePos = createVector(mouseX, mouseY);
     if (this.contains(mousePos)){
 
@@ -25,9 +28,9 @@ function Menu() {
     } else {
       this.menuColor = color(0,0,0,50);
     }
-  };
+  }
 
-  this.show = function() {
+  show() {
 
     push();
     resetMatrix();
@@ -41,6 +44,5 @@ function Menu() {
     text("START", this.x, this.y);
     pop();
 
-  };
-
+  }
 }

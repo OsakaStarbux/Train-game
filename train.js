@@ -1,3 +1,5 @@
+ /*jshint esversion: 6 */
+
 /*
   TODO: pass in a config or options object to draw a different
   kind / color train. There should be default options and the
@@ -7,24 +9,26 @@
   passed.
 */
 
-// a train constructor function
+
 // consumes a node produces a train
 
-function Train(node) {
+class Train {
+  constructor(node){
+    this.length = 100;
+    this.width = 40;
+    this.angle = 0;
+    this.node = node;
 
-  this.length = 100;
-  this.width = 40;
-  this.angle = 0;
-  this.node = node;
+    this.posAngles = this.node.trackSection.posAngles;
+    this.x = this.posAngles[0].x;
+  	this.y = this.posAngles[0].y;
+    this.currentPos = 1; // skip the first pos to stop repeats
+    this.camera = createVector((-this.x + width / 4) * 2, (-this.y + height) * 2);
+    this.hasFinishedCurrentSection = false;
+  }
 
-  this.posAngles = this.node.trackSection.posAngles;
-  this.x = this.posAngles[0].x;
-	this.y = this.posAngles[0].y;
-  this.currentPos = 1; // skip the first pos to stop repeats
-  this.camera = createVector((-this.x + width / 4) * 2, (-this.y + height) * 2);
-  this.hasFinishedCurrentSection = false;
 
-  this.update = function(speed) {
+  update(speed) {
 
     if (this.currentPos <= this.posAngles.length - 1){
       // track section not complete
@@ -37,9 +41,9 @@ function Train(node) {
        // track section is complete
        this.hasFinishedCurrentSection = true;
      }
-  };
+  }
 
-  this.show = function() {
+  show() {
 
     push();
     scale(0.5);
@@ -189,7 +193,5 @@ function Train(node) {
     ellipse(this.length * 0.2, 0, this.width * 0.22, this.width * 0.22);
 
     pop();
-  };
+  }
 }
-
-//module.exports.Train = Train;

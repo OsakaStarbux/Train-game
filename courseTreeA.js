@@ -59,5 +59,3 @@ function buildTreeA(){
 
   return courseTreeA;
 }
-
-          // module.exports.buildTree = buildTree();

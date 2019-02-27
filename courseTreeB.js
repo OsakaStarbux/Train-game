@@ -76,5 +76,3 @@ function buildTreeB(){
 
   return courseTreeB;
 }
-
-          // module.exports.buildTree = buildTree();

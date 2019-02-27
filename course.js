@@ -4,34 +4,35 @@
 // consumes a tree of type courseTree and produces a Course
 // Holds and updates our position in the course
 
-function Course(courseTree) {
+class Course {
+  constructor(courseTree){
+    this.courseTree = courseTree;
+    this.currentNode = courseTree.root;
 
-  this.courseTree = courseTree;
-  this.currentNode = courseTree.root;
+    this.train = new Train(this.currentNode);
+    this.isFinished = function(){
 
-  this.train = new Train(this.currentNode);
-  this.isFinished = function(){
+      return this.currentNode.isLeaf;
+    };
+    this.currentState = new StartMenu();
+  }
 
-    return this.currentNode.isLeaf;
-  };
-  this.currentState = new StartMenu();
-
-  this.getNextNode = function(){
+  getNextNode(){
     // refresh the next node for all nodes in the tree
     this.courseTree.getNextNode();
     //assign nextnode
   //  this.nextNode = this.currentNode.nextNode;
 
     this.currentNode = this.currentNode.nextNode;
-  };
+  }
 
-  this.resetTrain = function(){
+  resetTrain(){
 
     // set the current train to a new train on the current node
     this.train = new Train(this.currentNode);
-  };
+  }
 
-  this.set_state = function(newState) {
+  set_state(newState) {
     // if the cuurent state is not empty
     // call the exit actions to teardown the state
     if (this.currentState !== null){
@@ -41,73 +42,66 @@ function Course(courseTree) {
     this.currentState = newState;
     // call the entry actions to setup the state
     this.currentState.entryActions(this);
-  };
+  }
 
-  this.update = function(){
+  update(){
     /* Client calls to the wrapper function,  get delegated to the current
     state object. We need a reference back to the wrapper
     */
     this.currentState.update(this); // pass wrapper class "this" Course
 
-  };
+  }
 
-  this.showTracks = function() {
+  showTracks() {
 
     this.courseTree.draw();
-  };
+  }
 }
 
-function StartMenu() {
-
+class StartMenu {
+  constructor(){
     this.menu = new Menu();
+  }
 
-    this.handleClick = function(tree){
-
-      let mousePos = createVector(mouseX, mouseY);
-      if (this.menu.contains(mousePos)){
-
+  handleClick(tree) {
+    let mousePos = createVector(mouseX, mouseY);
+    if (this.menu.contains(mousePos)){
         course.set_state(new Countdown());
-      }
+    }
+  }
 
-    };
+  entryActions() {
+    this.startTime = millis();
+  }
 
-    this.entryActions = function(){
-
-      this.startTime = millis();
-    };
-
-    this.update = function(wrapper) {
-
+  update(wrapper) {
     // do someething on every update call
-      // show the tracks
-      wrapper.showTracks();
-      // show the train
-      wrapper.train.show();
+    // show the tracks
+    wrapper.showTracks();
+    // show the train
+    wrapper.train.show();
+    this.menu.update();
+    // show the menu
+    this.menu.show();
+    }
 
-
-      this.menu.update();
-      // show the menu
-      this.menu.show();
-
-    };
-
-    this.exitActions = function(){
+  exitActions() {
       // teardown and do things only once on exit
-    };
-
+    }
 }
 
-function Countdown() {
+class Countdown {
+  constructor() {
+    this.countdown = 5;
+    this.period = 1000;
+    this.startMillis = 0;
+  }
 
-  this.countdown = 5;
-  this.period = 1000;
-  this.startMillis = 0;
+  handleClick(tree){
 
-  this.handleClick = function(tree){
+  }
 
-  };
-
-  this.showCountdown = function(count){
+  showCountdown(count){
     let countText;
     if (count > 0){
       countText = count.toString();
@@ -121,15 +115,14 @@ function Countdown() {
     textAlign(CENTER, CENTER);
     text(countText, width / 2, height / 2);
     pop();
-  };
+  }
 
-  this.entryActions = function(wrapper){
+  entryActions(wrapper) {
     // setup and do things only once on entry
+    this.startMillis = millis();
+  }
 
-     this.startMillis = millis();
-  };
-
-  this.update = function(wrapper) {
+  update(wrapper) {
     // do someething on every update call
     // check elapsed time
     let currentTime = millis();
@@ -151,30 +144,29 @@ function Countdown() {
 
     if (this.countdown <= 0) {
       wrapper.set_state(new LeadIn());
-
     }
-  };
+  }
 
-  this.exitActions = function(wrapper){
+  exitActions(wrapper) {
     // teardown and do things only once on exit
-  };
+  }
 
 }
 
-function LeadIn(){
+class LeadIn{
+  constructor() {
 
-  this.handleClick = function(tree){
+  }
+
+  handleClick(tree) {
     tree.checkTreeClicked();
-  };
+  }
 
-  this.entryActions = function(wrapper){
+  entryActions(wrapper){
     // setup and do things only once on entry
+  }
 
-
-
-  };
-
-  this.update = function(wrapper) {
+  update(wrapper) {
     // do someething on every update call
       //show the tracks
     wrapper.showTracks();
@@ -182,63 +174,45 @@ function LeadIn(){
     wrapper.train.update(speed);
     //show the train
     wrapper.train.show();
-
-
-
     //if the track section is finished: set next track section
     // This is the first track section so we won't check
     // if the course is finished
     if (wrapper.train.hasFinishedCurrentSection) {
       // switch to next section
-
-
       wrapper.set_state(new EnRoute());
     }
+  }
 
-  };
-
-  this.exitActions = function(wrapper){
+  exitActions(wrapper) {
     // teardown and do things only once on exit
-
-  };
-
-
-
+  }
 }
 
 
-function EnRoute(){
+class EnRoute{
+  constructor(){
 
-  this.handleClick = function(tree){
-
+  }
+  handleClick(tree) {
     tree.checkTreeClicked();
-  };
+  }
 
-  this.entryActions = function(wrapper){
+  entryActions(wrapper) {
     // setup and do things only once on entry
     wrapper.getNextNode();
     wrapper.resetTrain();
+  }
 
-
-
-
-  };
-
-  this.update = function(wrapper) {
+  update(wrapper) {
     // do someething on every update call
-
-
-      //show the tracks
+    //show the tracks
     wrapper.showTracks();
     //update the train
     wrapper.train.update(speed);
     //show the train
     wrapper.train.show();
-
-
     // if the track section is finished
     if (wrapper.train.hasFinishedCurrentSection) {
-
       // switch to next section (increment course currentStep)
       // or if the course is finished: set state GameOver
       if (wrapper.isFinished()) {
@@ -249,29 +223,28 @@ function EnRoute(){
       }
     }
 
-  };
+  }
 
-  this.exitActions = function(wrapper){
+  exitActions(wrapper){
     // teardown and do things only once on exit
-
-  };
-
+  }
 }
 
-function GameOver(){
+class GameOver {
+  constructor(){
 
-  this.handleClick = function(tree){
+  }
 
+  handleClick(tree){
     course.set_state(new Restart());
-  };
+  }
 
-  this.entryActions = function(wrapper){
+  entryActions(wrapper) {
     // setup and do things only once on entry
-
     setResult();
-  };
+  }
 
-  this.update = function(wrapper) {
+  update(wrapper) {
     // do someething on every update call
     //show the tracks
     wrapper.showTracks();
@@ -288,35 +261,32 @@ function GameOver(){
     textAlign(CENTER, CENTER);
     text("Click to play again", width / 2, height / 2 + 50);
     pop();
-  };
+  }
 
-  this.exitActions = function(wrapper){
+  exitActions(wrapper) {
     // teardown and do things only once on exit
-  };
+  }
 }
 
-function Restart(){
+class Restart {
+  constructor() {
 
-  this.handleClick = function(tree){
+  }
 
-  };
+  handleClick(tree) {
 
-  this.entryActions = function(wrapper){
+  }
+
+  entryActions(wrapper) {
     // setup and do things only once on entry
-  
     setupGame();
-  };
+  }
 
-  this.update = function(wrapper) {
+  update(wrapper) {
 
-  };
+  }
 
-  this.exitActions = function(wrapper){
+  exitActions(wrapper) {
     // teardown and do things only once on exit
-
-
-  };
+  }
 }
-
-
-// module.exports = Course;

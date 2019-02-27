@@ -1,35 +1,40 @@
+ /*jshint esversion: 6 */
 
-function Signal(node, pos) {
-  this.node = node;
-  this.pos = pos;
-  this.bounds = {
-    min:{ x: this.pos.x - 90, y: this.pos.y - 170},
-    max:{ x: this.pos.x + 15, y: this.pos.y + 155}
-  };
+class Signal {
 
-  this.clickBounds = {
-    min:{ x: this.pos.x - 190, y: this.pos.y - 190},
-    max:{ x: this.pos.x + 115, y: this.pos.y + 200}
-  };
+  constructor (node, pos){
+    this.node = node;
+    this.pos = pos;
+    this.bounds = {
+      min:{ x: this.pos.x - 90, y: this.pos.y - 170},
+      max:{ x: this.pos.x + 15, y: this.pos.y + 155}
+    };
 
-  this.rotation = 0;
-  this.green = color(0, 255, 0);
-  this.darkgreen = color(0, 100, 0);
-  this.red = color(255, 0, 0);
-  this.darkred = color(100, 0, 0);
-  this.armColor = color(220, 0, 0);
-  this.greenSpectacleColor = this.green;
-  this.redSpectacleColor = this.darkred;
+    this.clickBounds = {
+      min:{ x: this.pos.x - 190, y: this.pos.y - 190},
+      max:{ x: this.pos.x + 115, y: this.pos.y + 200}
+    };
 
-  this.toggle = function(){
+    this.rotation = 0;
+    this.green = color(0, 255, 0);
+    this.darkgreen = color(0, 100, 0);
+    this.red = color(255, 0, 0);
+    this.darkred = color(100, 0, 0);
+    this.armColor = color(220, 0, 0);
+    this.greenSpectacleColor = this.green;
+    this.redSpectacleColor = this.darkred;
+
+  }
+
+  toggle() {
     if (this.node.isOpen){
       this.node.isOpen = false;
     } else {
       this.node.isOpen = true;
     }
-  };
+  }
 
-  this.contains = function(point){
+  contains(point) {
     if (point.x > this.clickBounds.min.x &&
       point.x < this.clickBounds.max.x &&
       point.y > this.clickBounds.min.y &&
@@ -38,13 +43,9 @@ function Signal(node, pos) {
       } else {
         return false;
       }
-    };
+    }
 
-  this.show = function() {
-
-
-
-
+  show() {
     // draw post
     push();
 
@@ -58,13 +59,13 @@ function Signal(node, pos) {
     strokeWeight(5);
     rect(this.clickBounds.min.x, this.clickBounds.min.y, this.clickBounds.max.x, this.clickBounds.max.y);
     pop();
-// draw the post
+    // draw the post
     fill(255);
     noStroke();
     rectMode(CENTER);
-    rect(pos.x, pos.y, 12, 300, 20, 20, 0, 0);
+    rect(this.pos.x, this.pos.y, 12, 300, 20, 20, 0, 0);
 
-// use the signal's parent node' isOpen Boolean to draw open or closed
+    // use the signal's parent node' isOpen Boolean to draw open or closed
     if (this.node.isOpen) {
       this.rotation = PI / 4;
       this.greenSpectacleColor = this.green;
@@ -75,8 +76,7 @@ function Signal(node, pos) {
       this.redSpectacleColor = this.red;
     }
 
-
-    translate(pos.x, pos.y - 100);
+    translate(this.pos.x, this.pos.y - 100);
     rotate(this.rotation);
     noStroke();
     // arm
@@ -103,7 +103,6 @@ function Signal(node, pos) {
     ellipseMode(CENTER);
     ellipse(9, 12, 12, 12);
     pop();
-  };
-
+  }
 
 }

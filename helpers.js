@@ -137,7 +137,6 @@ function containsPoint(topLeft, bottomRight, point){
 
 }
 
-
 // convert window coordinates to canvas coordinates
 
 function adjustX(val){

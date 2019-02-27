@@ -1,3 +1,5 @@
+ /*jshint esversion: 6 */
+
 /*
 This code is based on the example at processing.org in Java by Jakub Valtar www.jakubvaltar.com
 
@@ -33,70 +35,72 @@ tangentPoints(howMany): returns an array of angles in radians that are tangents 
 
 */
 
-function BezierCurve(a, b, c, d) {
-  // Constants
-  this.SEGMENT_COUNT = 100;
+class BezierCurve {
+  constructor(a, b, c, d){
+    // Constants
+    this.SEGMENT_COUNT = 100;
+    //properties
+    // these props should be of type P5.Vector
+    this.v0 = a;
+    this.v1 = b;
+    this.v2 = c;
+    this.v3 = d;
 
-  //properties
-  // these props should be of type P5.Vector
-  this.v0 = a;
-  this.v1 = b;
-  this.v2 = c;
-  this.v3 = d;
+    this.arcLengths = [];
+    this.curveLength = 0;
+    this.prev = this.v0.copy();
+    this.arcLength = 0;
 
-  this.arcLengths = [];
-  this.curveLength = 0;
-  this.prev = this.v0.copy();
-  this.arcLength = 0;
+    // i goes from 0 to SEGMENT_COUNT
+    for (let i = 0; i <= this.SEGMENT_COUNT; i++) {
+      // map index from range (0, SEGMENT_COUNT) to parameter in range (0.0, 1.0)
+      let t = i / this.SEGMENT_COUNT;
+
+      // get point on the curve at this parameter value
+      let point = this.pointAtParameter(t);
+
+      // get distance from previous point
+      let distanceFromPrev = p5.Vector.dist(this.prev, point);
+
+      // add arc length of last segment to total length
+      this.arcLength += distanceFromPrev;
+
+      // save current arc length to the look up table
+      this.arcLengths[i] = this.arcLength;
+
+      // keep this point to compute length of next segment
+      this.prev.set(point);
+
+      // Here we have sum of all segment lengths, which should be
+      // very close to the actual length of the curve. The more
+      // segments we use, the more accurate it becomes.
+      this.curveLength = this.arcLength;
+    }
+  }
+
 
   // Returns a point along the curve at a specified parameter value.
-  this.pointAtParameter = function(t) {
+  pointAtParameter(t) {
     let result = createVector(0, 0);
     result.x = bezierPoint(this.v0.x, this.v1.x, this.v2.x, this.v3.x, t);
     result.y = bezierPoint(this.v0.y, this.v1.y, this.v2.y, this.v3.y, t);
     return result;
-  };
-
-  // i goes from 0 to SEGMENT_COUNT
-  for (let i = 0; i <= this.SEGMENT_COUNT; i++) {
-    // map index from range (0, SEGMENT_COUNT) to parameter in range (0.0, 1.0)
-    let t = i / this.SEGMENT_COUNT;
-
-    // get point on the curve at this parameter value
-    let point = this.pointAtParameter(t);
-
-    // get distance from previous point
-    let distanceFromPrev = p5.Vector.dist(this.prev, point);
-
-    // add arc length of last segment to total length
-    this.arcLength += distanceFromPrev;
-
-    // save current arc length to the look up table
-    this.arcLengths[i] = this.arcLength;
-
-    // keep this point to compute length of next segment
-    this.prev.set(point);
-
-    // Here we have sum of all segment lengths, which should be
-    // very close to the actual length of the curve. The more
-    // segments we use, the more accurate it becomes.
-    this.curveLength = this.arcLength;
   }
 
   // Returns the length of this curve
-  this.length = function() {
+  length() {
     return this.curveLength;
-  };
+  }
 
   // Returns a point at a fraction of curve's length.
   // Example: pointAtFraction(0.25) returns point at one quarter of curve's length.
-  this.pointAtFraction = function(r) {
+  pointAtFraction(r) {
     let wantedLength = this.curveLength * r;
     return this.pointAtLength(wantedLength);
-  };
+  }
 
   // Returns a point at a specified arc length along the curve.
-  this.pointAtLength = function(wantedLength) {
+  pointAtLength(wantedLength) {
     wantedLength = constrain(wantedLength, 0.0, this.curveLength);
 
     // look up the length in our look up table
@@ -133,10 +137,10 @@ function BezierCurve(a, b, c, d) {
     let parameter = mappedIndex / this.SEGMENT_COUNT;
 
     return this.pointAtParameter(parameter);
-  };
+  }
 
   // Returns an array of equidistant p5.Vector points on the curve
-  this.equidistantPoints = function(howMany) {
+  equidistantPoints(howMany) {
     let resultPoints = [];
 
     // we already know the beginning and the end of the curve
@@ -177,10 +181,10 @@ function BezierCurve(a, b, c, d) {
     }
 
     return resultPoints;
-  };
+  }
 
   // Returns an array of points on the curve.
-  this.points = function(howMany) {
+  points(howMany) {
     let resultPoints = [];
 
     // we already know the first and the last point of the curve
@@ -195,9 +199,9 @@ function BezierCurve(a, b, c, d) {
     }
 
     return resultPoints;
-  };
+  }
 
-  this.offsetPoints = function(howMany, dist, angle) {
+  offsetPoints(howMany, dist, angle) {
     let resultPoints = [];
 
     for (let i = 0; i <= howMany; i++) {
@@ -219,14 +223,14 @@ function BezierCurve(a, b, c, d) {
         x: cos(a) * dist + point.x,
         y: sin(a) * dist + point.y
       };
-      // push the point onto the rail1 point array
+      // push the point onto the point array
       resultPoints.push(newPoint);
     }
 
     return resultPoints;
-  };
+  }
 
-  this.tangentPoints = function(howMany) {
+  tangentPoints(howMany) {
     let result = [];
 
     for (let i = 0; i <= howMany; i++) {
@@ -239,7 +243,7 @@ function BezierCurve(a, b, c, d) {
       result.push(a);
     }
     return result;
-  };
+  }
 }
 
 // Binary Search based on code at https://dev.to/stepho/linear-and-binary-search-in-javascript-4b7h
@@ -259,5 +263,3 @@ function binarySearch(sortedArray, elt) {
   }
   return -(lowIndex + 1);
 }
-
-//module.exports.BezierCurve = BezierCurve;
